@@ -1,0 +1,28 @@
+<%= form_for :account, url: accounts_path do |f| %>
+  <% if @account.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@account.errors.count, "error") %> prohibited
+        this article from being saved:
+      </h2>
+      <ul>
+        <% @account.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p>
+    <%= f.label :public_key %> (address)<br>
+    <%= f.text_field :public_key %>
+  </p>
+
+  <p>
+    <%= f.label :mobile_number %><br>
+    <%= f.text_field :mobile_number %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

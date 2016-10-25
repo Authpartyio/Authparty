@@ -1,0 +1,6 @@
+<h3>Verify Mobile Number</h3>
+<%= form_tag(verify_path, method: "patch") %>
+<%= hidden_field_tag('id', params['id']) %>
+<%= text_field_tag('verification_code') %>
+<%= button_tag('Confirm code', type: "submit") %>
+</form>

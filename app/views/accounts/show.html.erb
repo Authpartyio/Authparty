@@ -1,0 +1,18 @@
+<p>
+  <strong>Public Key:</strong>
+  <%= @account.public_key %>
+</p>
+
+<p>
+  <strong>Mobile Number:</strong>
+  <%= @account.mobile_number %>
+</p>
+
+<p>
+  <strong>Mobile Confirmed?:</strong>
+  <% if @account.is_verified != true %>
+  <%= link_to 'Confirm now', '/send_sms?id=' + @account.id.to_s %>
+  <% else %>
+  <span>Yes</span>
+  <% end %>
+</p>

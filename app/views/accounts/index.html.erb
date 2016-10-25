@@ -1,0 +1,16 @@
+<h1>Listing Accounts</h1>
+
+<table>
+  <tr>
+    <th>Public Key</th>
+    <th>Mobile Number</th>
+  </tr>
+
+  <% @accounts.each do |account| %>
+    <tr>
+      <td><%= account.public_key %></td>
+      <td><%= account.mobile_number %></td>
+      <td><%= link_to 'View', account_path(account) %></td>
+    </tr>
+  <% end %>
+</table>

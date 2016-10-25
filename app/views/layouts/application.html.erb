@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @title %> | Authparty</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if flash[:success] %>
+      <div class="success"><%= flash[:success] %></div>
+    <% end %>
+    <% if flash[:errors] %>
+      <div class="success"><%= flash[:errors] %></div>
+    <% end %>
+    
+    <%= yield %>
+  </body>
+</html>
