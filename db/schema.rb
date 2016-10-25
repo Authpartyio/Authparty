@@ -17,6 +17,8 @@ ActiveRecord::Schema.define(version: 20161024220606) do
     t.string   "mobile_number"
     t.string   "verification_code"
     t.boolean  "is_verified"
+    t.string   "broadcast_code"
+    t.boolean  "is_broadcasted"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end

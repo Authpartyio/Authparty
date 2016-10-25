@@ -1,4 +1,5 @@
 require 'twilio-ruby'
+require 'counterparty_ruby'
 class VerificationsController < ApplicationController
   def create
     @account = Account.find(params[:id])
@@ -34,5 +35,8 @@ class VerificationsController < ApplicationController
     end
   else
     redirect_to account_url(@account.id), :flash => { :errors => "Invalid verification code." }
+  end
+
+  def confirm_broadcast
   end
 end

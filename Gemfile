@@ -34,6 +34,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'phonelib'
 gem 'dotenv-rails'
 gem 'twilio-ruby'
+gem 'counterparty_ruby'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -4,15 +4,32 @@
 </p>
 
 <p>
+  <strong>Response</strong>
+  <%= @reponse %>
+</p>
+
+<p>
   <strong>Mobile Number:</strong>
   <%= @account.mobile_number %>
 </p>
 
-<p>
-  <strong>Mobile Confirmed?:</strong>
-  <% if @account.is_verified != true %>
-  <%= link_to 'Confirm now', '/send_sms?id=' + @account.id.to_s %>
-  <% else %>
-  <span>Yes</span>
-  <% end %>
-</p>
+<% if @account.is_broadcasted != true %>
+  <p>
+    <strong>Please Broadcast the following in your wallet:</strong>
+    <h5>AUTHPARTY VERIFY-ADDRESS <%= @account.broadcast_code %></h5>
+    <strong>Wait for one confirmation then check:</strong>
+    <h5><%= link_to 'Confirm Broadcast', '/broadcast?id=' + @account.id.to_s %></h5>
+<% else %>
+  <p>
+    <% if @account.verification_code == nil %>
+      <%= link_to 'Send SMS Code', '/send_sms?id=' + @account.id %>
+    <% else %>
+      <strong>Mobile Confirmed?:</strong>
+      <% if @account.is_verified != true %>
+      <%= link_to 'Confirm now', '/send_sms?id=' + @account.id.to_s %>
+      <% else %>
+      <span>Yes</span>
+      <% end %>
+    <% end %>
+  </p>
+<% end %>
