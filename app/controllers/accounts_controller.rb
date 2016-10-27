@@ -24,6 +24,12 @@ class AccountsController < ApplicationController
   def show
     @title = "Account"
     @account = Account.find(params[:id])
+
+    if @account.is_broadcasted = false
+      @response = 'Valid broadcast not found on the blockchain.'
+    else
+      @response = 'Valid broadcast found and confirmed.'
+    end
   end
 
   def generate_code(number)

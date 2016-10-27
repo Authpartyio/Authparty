@@ -1,0 +1,20 @@
+Searching broadcasts for <%= @account.public_key %>
+<p>Result: <%= @result %></p>
+
+<% if 0 != @response['total'] %>
+  <h4>Found Broadcasts</h4>
+  <p>
+    <% @broadcasts.each do |b| %>
+      <ul>
+        <li>Text: <%= b['text'] %></li>
+        <li>Block #: <%= b['block'] %></li>
+        <li>Status: <%= b['status'] %></li>
+        <li>Time: <%= b['time'] %></li>
+        <li>TX Hash: <%= b['tx_hash'] %></li>
+      </ul>
+    <% end %>
+  </p>
+  <% if @result == 'Found matching broadcast!' %>
+    <%= link_to 'Next: Confirm phone number', '/send_sms?id=' + @account.id.to_s %>
+  <% end %>
+<% end %>

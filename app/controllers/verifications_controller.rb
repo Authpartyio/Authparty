@@ -1,5 +1,6 @@
 require 'twilio-ruby'
 require 'counterparty_ruby'
+require 'json'
 class VerificationsController < ApplicationController
   def create
     @account = Account.find(params[:id])
@@ -38,5 +39,25 @@ class VerificationsController < ApplicationController
   end
 
   def confirm_broadcast
+    @title = 'Verifify Broadcast'
+    @account = Account.find(params[:id])
+    address = @account.public_key
+    @response = JSON.parse(HTTParty.get('https://counterpartychain.io/api/broadcasts/' + address))
+    @broadcasts = @response['data']
+
+    if 0 != @response['total']
+      @broadcasts.each do |b|
+        if b['text'] == "AUTHPARTY VERIFY-ADDRESS " + @account.broadcast_code
+          @result = 'Found matching broadcast!'
+          @account.is_broadcasted = true
+          @account.save
+          break
+        else
+          @result = 'No valid broadcast found.'
+        end
+      end
+    else
+      @result = @account.public_key + ' has never made a broadcast.'
+    end
   end
 end
