@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @title %> | Authparty</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <style>
+      body { padding: 20px 15px 20px 15px; }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid login_frame">
+      <div class="row">
+        <div class="col-sm-12">
+          <%= image_tag(@provider.logo, class: "center-block img-thumbnail") %>
+        </div>
+        <div class="headline center-block" style="position: relative; top: 15px;">
+          <h2><%= @provider.name %></h2>
+          <h3>Is requesting to authorize you using your Authparty account.</h3>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 35px;">
+        <div class="col-sm-8 col-sm-offset-2 well well-lg">
+          <h3 align="center">Enter SMS Confirmation Code</h3>
+          <div class="row" style="margin-top: 25px;">
+            <div class="col-sm-6 col-sm-offset-3">
+            <%= form_tag(providers_authenticate_path, method: "patch") %>
+              <div class="form-group center-block">
+                <%= hidden_field_tag(:public_key, @account.public_key) %>
+                <%= hidden_field_tag(:api_key, @provider.api_key) %>
+                <%= text_field_tag(:verification_code) %>
+              </div>
+              <%= button_tag('Authorize', type: "submit") %>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

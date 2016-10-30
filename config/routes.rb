@@ -1,10 +1,4 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
-
-  get 'sessions/create'
-
-  get 'sessions/destroy'
-
   root 'welcome#index'
 
   get 'send_sms'  => 'verifications#create'
@@ -18,6 +12,11 @@ Rails.application.routes.draw do
   get 'verify_login'     => 'sessions#confirm_code'
   patch 'verify_login'   => 'sessions#confirm_accepted'
   get 'logout'           => 'sessions#destroy'
+
+  resources :providers
+  get 'providers_login'            => 'providers#login_form'
+  patch 'providers_authenticate'   => 'providers#authenticate'
+  get 'providers_revoke'           => 'providers#revoke'
 
   resources :accounts
 end

@@ -36,6 +36,11 @@ class AccountsController < ApplicationController
     else
       @response = 'Valid broadcast found and confirmed.'
     end
+
+    @providers = []
+    @account.providers_authorized.each do |p|
+      @providers << Provider.find(p)
+    end
   end
 
   def generate_code(number)

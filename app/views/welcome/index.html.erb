@@ -5,11 +5,14 @@
      secure, and cross-service authentication.</p>
     <p>
       <% if logged_in? %>
-      <%= link_to 'My Authparty', account_path(current_user),:class => 'btn btn-primary btn-lg',
+      <%= link_to 'My Authparty', account_path(current_user), :class => 'btn btn-primary btn-lg',
         :role => 'button' %></p>
       <% else %>
-        <%= link_to 'Get started', new_account_path,:class => 'btn btn-primary btn-lg',
+        <%= link_to 'Get started', new_account_path, :class => 'btn btn-primary btn-lg',
           :role => 'button' %></p>
       <% end %>
   </div>
 </div>
+
+<%= link_to 'Login with Authparty Example', providers_login_path + '?api_key=1234&public_key=16gHsttasFz8T48MFsfzq199esvWTJGn94',
+  :onclick=>"window.open(this.href,'create_company', 'height=475, width=800');return false;" %>

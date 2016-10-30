@@ -18,14 +18,16 @@ ActiveRecord::Schema.define(version: 20161030001601) do
     t.string   "verification_code"
     t.boolean  "is_verified"
     t.string   "broadcast_code"
-    t.boolean  "is_broadcasted",    default: false, null: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.boolean  "is_broadcasted",       default: false, null: false
+    t.string   "providers_authorized"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   create_table "providers", force: :cascade do |t|
     t.string   "name"
     t.string   "api_key"
+    t.string   "callback_url"
     t.string   "contact_email"
     t.string   "logo"
     t.integer  "number_connected"

@@ -2,13 +2,22 @@
   <div class="services col-xs-12 col-sm-6 col-md-7 col-lg-8">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Autorized Services</h3>
+        <h3 class="panel-title">Authorized Services</h3>
       </div>
       <div class="panel-body">
-        <p>
-          <h5>My Address</h5>
-          <%= @account.public_key %>
-        </p>
+        <% if @providers.length > 0 %>
+          <% @providers.each do |p| %>
+            <div class="col-sm-12 well pull-left">
+              <%= image_tag(p.logo, class: "img-thumbnail logo pull-left") %>
+              <%= link_to 'Revoke Access', providers_revoke_path + '?account=' + @account.id.to_s + '&provider=' + p.id.to_s,
+                :class => 'btn btn-danger pull-right' %>
+              <h3 style="margin-top: 0px; margin-bottom: 0px;"><%= p.name %></h3>
+              <h3 style="margin-top: 0px;"><small><%= p.contact_email %></small></h3>
+            </div>
+          <% end %>
+        <% else %>
+          <h5>No services authenticated.</h5>
+        <% end %>
       </div>
     </div>
   </div>

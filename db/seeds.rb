@@ -11,3 +11,9 @@ Account.create(
   mobile_number: '12173816391',
   broadcast_code: 'JvndCVLBWuiLcOk'
 )
+
+Provider.create(
+ name: 'Test Integration', api_key: 1234, callback_url: 'http://localhost:3000/authparty',
+ contact_email: 'test@test.com', logo: 'https://counterpartychain.io/content/images/icons/stopthenuke.png',
+ number_connected: 1
+)
