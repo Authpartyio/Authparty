@@ -45,7 +45,9 @@ class VerificationsController < ApplicationController
     @response = JSON.parse(HTTParty.get('https://counterpartychain.io/api/broadcasts/' + address))
     @broadcasts = @response['data']
 
-    if 0 != @response['total']
+    if 0 == @response['total'].to_i
+      @result = @account.public_key + ' has never made a broadcast.'
+    else
       @broadcasts.each do |b|
         if b['text'] == "AUTHPARTY VERIFY-ADDRESS " + @account.broadcast_code
           @result = 'Found matching broadcast!'
@@ -56,8 +58,6 @@ class VerificationsController < ApplicationController
           @result = 'No valid broadcast found.'
         end
       end
-    else
-      @result = @account.public_key + ' has never made a broadcast.'
     end
   end
 end

@@ -6,7 +6,7 @@ class CreateAccounts < ActiveRecord::Migration[5.0]
       t.string :verification_code
       t.boolean :is_verified
       t.string :broadcast_code
-      t.boolean :is_broadcasted
+      t.boolean :is_broadcasted, default: false, null: false
 
       t.timestamps
     end

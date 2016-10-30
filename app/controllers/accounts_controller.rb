@@ -15,17 +15,23 @@ class AccountsController < ApplicationController
     @account = Account.new(account_params)
     @account.broadcast_code = generate_code(15)
     if @account.save
-      redirect_to @account
+      session[:current_user] = @account.id
+      log_in(@account)
+      redirect_to account_url(@account)
     else
-      redirect_to account_url(@account.id)
+      redirect_to new_account_url, :flash => { :errors => @account.errors }
     end
   end
 
   def show
+    if current_user == nil
+      redirect_to root_url, :flash => { :errors => 'You must be logged in
+        to view this resource' }
+    end
     @title = "Account"
-    @account = Account.find(params[:id])
+    @account = Account.find(current_user)
 
-    if @account.is_broadcasted = false
+    if @account.is_broadcasted == false
       @response = 'Valid broadcast not found on the blockchain.'
     else
       @response = 'Valid broadcast found and confirmed.'

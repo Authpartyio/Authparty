@@ -1,35 +1,55 @@
-<p>
-  <strong>Public Key:</strong>
-  <%= @account.public_key %>
-</p>
-
-<p>
-  <strong>Broadcast Verification:</strong>
-  <%= @response %>
-</p>
-
-<p>
-  <strong>Mobile Number:</strong>
-  <%= @account.mobile_number %>
-</p>
-
-<% if @account.is_broadcasted == true %>
-  <p>
-    <strong>Please Broadcast the following in your wallet:</strong>
-    <h5>AUTHPARTY VERIFY-ADDRESS <%= @account.broadcast_code %></h5>
-    <strong>Wait for one confirmation then check:</strong>
-    <h5><%= link_to 'Confirm Broadcast', '/broadcast?id=' + @account.id.to_s %></h5>
-<% else %>
-  <p>
-    <% if @account.verification_code == nil %>
-      <%= link_to 'Send SMS Code', '/send_sms?id=' + @account.id.to_s %>
-    <% else %>
-      <strong>Mobile Confirmed?:</strong>
-      <% if @account.is_verified != true %>
-      <%= link_to 'Confirm now', '/send_sms?id=' + @account.id.to_s %>
-      <% else %>
-      <span>Yes</span>
-      <% end %>
-    <% end %>
-  </p>
-<% end %>
+<div class="container" style="margin-top: 25px;">
+  <div class="services col-xs-12 col-sm-6 col-md-7 col-lg-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Autorized Services</h3>
+      </div>
+      <div class="panel-body">
+        <p>
+          <h5>My Address</h5>
+          <%= @account.public_key %>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="account col-xs-12 col-sm-6 col-md-5 col-lg-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Authparty Account</h3>
+      </div>
+      <div class="panel-body">
+        <p>
+          <h5>My Address</h5>
+          <%= @account.public_key %>
+        </p>
+        <p>
+          <h5>Mobile Number</h5>
+          <%= @account.mobile_number %>
+        </p>
+        <p>
+          <h5>Address Verification</h5>
+          <%= @response %>
+        </p>
+        <p>
+          <% if @account.is_broadcasted == false %>
+            <strong>Please Broadcast the following in your wallet:</strong>
+            <h5>AUTHPARTY VERIFY-ADDRESS <%= @account.broadcast_code %></h5>
+            <strong>Wait for one confirmation then check:</strong>
+            <h5><%= link_to 'Confirm Broadcast', '/broadcast?id=' + @account.id.to_s %></h5>
+          <% else %>
+            <% if @account.verification_code == nil %>
+              <%= link_to 'Send SMS Code', '/send_sms?id=' + @account.id.to_s %>
+            <% else %>
+              <strong>Mobile Confirmed?:</strong>
+              <% if @account.is_verified != true %>
+              <%= link_to 'Confirm now', '/send_sms?id=' + @account.id.to_s %>
+              <% else %>
+              <span>Yes</span>
+              <% end %>
+            <% end %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,2 +1,15 @@
-<h1>Welcome#index</h1>
-<p>Find me in app/views/welcome/index.html.erb</p>
+<div class="jumbotron no-bottom-margin">
+  <div class="container">
+    <h1>Welcome to Authparty</h1>
+    <p>Utilize your Counterparty-enabled wallet address to enable seameless,
+     secure, and cross-service authentication.</p>
+    <p>
+      <% if logged_in? %>
+      <%= link_to 'My Authparty', account_path(current_user),:class => 'btn btn-primary btn-lg',
+        :role => 'button' %></p>
+      <% else %>
+        <%= link_to 'Get started', new_account_path,:class => 'btn btn-primary btn-lg',
+          :role => 'button' %></p>
+      <% end %>
+  </div>
+</div>
