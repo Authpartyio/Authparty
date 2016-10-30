@@ -105,6 +105,7 @@ GEM
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
+    pg (0.18.3)
     phonelib (0.6.5)
     puma (3.6.0)
     rack (2.0.1)
@@ -202,6 +203,7 @@ DEPENDENCIES
   jquery-rails
   json
   listen (~> 3.0.5)
+  pg
   phonelib
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
