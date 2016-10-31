@@ -33,14 +33,14 @@ class ProvidersController < ApplicationController
   end
 
   def login_form
-    @provider = Provider.find_by(api_key: params[:api_key])
     @account = Account.find_by(public_key: params[:public_key])
-    @title = 'Authorize ' + @provider.name
 
     if @account.is_broadcasted == false
       redirect_to providers_login_path, :flash => { :errors =>
         'You must first broadcast to confirm address ownership' }
     else
+      @provider = Provider.find_by(api_key: params[:api_key])
+      @title = 'Authorize ' + @provider.name
       @account.verification_code = 1_000_000 + rand(10_000_000 - 1_000_000)
       @account.save
 
