@@ -37,22 +37,27 @@ class ProvidersController < ApplicationController
     @account = Account.find_by(public_key: params[:public_key])
     @title = 'Authorize ' + @provider.name
 
-    @account.verification_code = 1_000_000 + rand(10_000_000 - 1_000_000)
-    @account.save
+    if @account.is_broadcasted == false
+      redirect_to providers_login_path, :flash => { :errors =>
+        'You must first broadcast to confirm address ownership' }
+    else
+      @account.verification_code = 1_000_000 + rand(10_000_000 - 1_000_000)
+      @account.save
 
-    to = @account.mobile_number
-    if to[0] = "0"
-      to.sub!("0", '+1')
+      to = @account.mobile_number
+      if to[0] = "0"
+        to.sub!("0", '+1')
+      end
+
+      @twilio_client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
+      @twilio_client.account.sms.messages.create(
+        :from => ENV['TWILIO_PHONE_NUMBER'],
+        :to => to,
+        :body => "A login request to #{@provider.name} has been made.\n\n Your verification code is #{@account.verification_code}."
+      )
+
+      render :layout => false
     end
-
-    @twilio_client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
-    @twilio_client.account.sms.messages.create(
-      :from => ENV['TWILIO_PHONE_NUMBER'],
-      :to => to,
-      :body => "A login request to #{@provider.name} has been made.\n\n Your verification code is #{@account.verification_code}."
-    )
-
-    render :layout => false
   end
 
   def authenticate
