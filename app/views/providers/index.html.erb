@@ -1,2 +1,39 @@
-<h1>Providers#index</h1>
-<p>Find me in app/views/providers/index.html.erb</p>
+<div class="row" style="padding: 0px 25px 0px 25px;">
+  <% @providers.each do |p| %>
+    <div class="col-sm-12 col-md-6 col-lg-4 providers-div">
+      <div class="well" style="margin-bottom: 0px;">
+        <h3 class="pull-right"><a class="btn btn-primary" style="margin-right: 10px;" role="button" data-toggle="collapse" href="#provider<%= p.id %>" aria-expanded="false" aria-controls="provider">Details</a></h3>
+        <h3><%= p.name %></h3>
+        <hr />
+        <div class="panel panel-default collapse" id="provider<%= p.id %>">
+          <div class="panel-body">
+            <p>
+              <h5>Contact Email:</h5>
+              <%= p.contact_email %>
+              <hr />
+            </p>
+            <p>
+              <h5>API Key:</h5>
+              <%= p.api_key %>
+              <hr />
+            </p>
+            <p>
+              <h5>Callback URL:</h5>
+              <%= p.callback_url %>
+              <hr />
+            </p>
+            <p>
+              <img class="pull-left logo" style="height: 50px; width: 50px; margin: 0px 15px 15px 0px;" src="<%= p.logo %>"/>
+              <h5>Logo URL:</h5> <span style="word-wrap: break-word;"><%= p.logo %></span>
+              <hr />
+            </p>
+            <p>
+              <h5>Number Times Authorized:</h5>
+              <%= p.number_connected %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

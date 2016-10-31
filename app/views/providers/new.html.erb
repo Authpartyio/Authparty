@@ -1,2 +1,44 @@
-<h1>Providers#new</h1>
-<p>Find me in app/views/providers/new.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-md-offset-3 col-lg-offset-4 well">
+      <%= form_for :provider, url: providers_path do |f| %>
+        <% if @provider.errors.any? %>
+          <div id="error_explanation">
+            <h2>
+              <%= pluralize(@provider.errors.count, "error") %> prohibited
+              this provider from being saved:
+            </h2>
+            <ul>
+              <% @provider.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <p>
+          <%= f.label :name %><br>
+          <%= f.text_field :name, :class => 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :callback_url %><br>
+          <%= f.text_field :callback_url, :class => 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :contact_email %><br>
+          <%= f.email_field :contact_email, :class => 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :logo %><br>
+          <%= f.text_field :logo, :class => 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.submit 'Create Provider', :class => 'btn btn-primary center-block' %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>

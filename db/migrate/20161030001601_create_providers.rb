@@ -6,7 +6,7 @@ class CreateProviders < ActiveRecord::Migration[5.0]
       t.string :callback_url
       t.string :contact_email
       t.string :logo
-      t.integer :number_connected
+      t.integer :number_connected, default: 0
 
       t.timestamps
     end

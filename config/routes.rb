@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get 'connections/index'
+
+  get 'connections/new'
+
+  get 'connections/create'
+
+  get 'connections/show'
+
+  get 'connections/destroy'
+
   root 'welcome#index'
 
   get 'send_sms'  => 'verifications#create'

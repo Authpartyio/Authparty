@@ -40,9 +40,9 @@ ActiveRecord::Schema.define(version: 20161031200846) do
     t.string   "callback_url"
     t.string   "contact_email"
     t.string   "logo"
-    t.integer  "number_connected"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.integer  "number_connected", default: 0
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
 end

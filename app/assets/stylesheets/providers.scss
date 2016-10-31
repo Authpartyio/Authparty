@@ -17,3 +17,15 @@
     margin: 0 auto;
   }
 }
+
+.well {
+  margin-top: 35px;
+}
+
+.providers-list {
+  padding: 15px;
+
+  .well {
+    h3 { margin: 0px; }
+  }
+}

@@ -2,12 +2,31 @@ require 'twilio-ruby'
 require 'securerandom'
 class ProvidersController < ApplicationController
   def index
+    if current_user == nil
+      redirect_to root_url, :flash => { :errors => 'You must be logged in
+        to view this resource' }
+    end
+    if current_user.public_key == ENV['PUBLIC_KEY']
+      @title = "Providers"
+      @providers = Provider.all
+    else
+      redirect_to account_path(current_user), :flash => { :errors => 'You are not a admin.' }
+    end
   end
 
   def new
+    @title = "Create Provider"
+    @provider = Provider.new
   end
 
   def create
+    @provider = Provider.new(provider_params)
+    @provider.api_key = SecureRandom.hex(15)
+    if @provider.save
+      redirect_to provider_url(@provider)
+    else
+      redirect_to new_provider_url, :flash => { :errors => @provider.errors }
+    end
   end
 
   def show
@@ -53,6 +72,8 @@ class ProvidersController < ApplicationController
         connection.provider_id = provider.id
         connection.connected_on = Time.now
         connection.bearer = SecureRandom.hex(32)
+        provider.number_connected += 1
+        provider.save
         connection.save
       end
       #if @account.providers_authorized.include?(provider.id)
@@ -67,8 +88,13 @@ class ProvidersController < ApplicationController
 
   def revoke
     @account = Account.find(params[:account])
-    @account.providers_authorized.delete(params[:provider].to_i)
+    @account.connections.find(params[:provider].to_i).destroy
     @account.save
     redirect_to account_path(@account), :flash => { :success => "Integration removed from account." }
+  end
+
+  private
+  def provider_params
+    params.require(:provider).permit(:name, :callback_url, :contact_email, :logo)
   end
 end
