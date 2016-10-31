@@ -38,8 +38,8 @@ class AccountsController < ApplicationController
     end
 
     @providers = []
-    @account.providers_authorized.each do |p|
-      @providers << Provider.find(p)
+    @account.connections.each do |c|
+      @providers << Provider.find(c.provider_id)
     end
   end
 

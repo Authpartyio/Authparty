@@ -27,12 +27,12 @@
           <div class="row" style="margin-top: 25px;">
             <div class="col-sm-6 col-sm-offset-3">
             <%= form_tag(providers_authenticate_path, method: "patch") %>
-              <div class="form-group center-block">
+              <div class="col-sm-12 form-group center-block">
                 <%= hidden_field_tag(:public_key, @account.public_key) %>
                 <%= hidden_field_tag(:api_key, @provider.api_key) %>
-                <%= text_field_tag(:verification_code) %>
+                <%= text_field_tag(:verification_code, "", class: 'form-control') %>
               </div>
-              <%= button_tag('Authorize', type: "submit") %>
+              <%= button_tag('Authorize', type: "submit", class: 'btn btn-primary center-block') %>
             </form>
           </div>
         </div>

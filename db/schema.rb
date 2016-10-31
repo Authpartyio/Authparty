@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161030001601) do
+ActiveRecord::Schema.define(version: 20161031200846) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "public_key"
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 20161030001601) do
     t.string   "providers_authorized"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
+  end
+
+  create_table "connections", force: :cascade do |t|
+    t.integer  "account_id"
+    t.string   "provider_id"
+    t.datetime "connected_on"
+    t.string   "bearer"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["account_id"], name: "index_connections_on_account_id"
   end
 
   create_table "providers", force: :cascade do |t|

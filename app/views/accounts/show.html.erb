@@ -7,12 +7,26 @@
       <div class="panel-body">
         <% if @providers.length > 0 %>
           <% @providers.each do |p| %>
-            <div class="col-sm-12 well pull-left">
+            <div class="col-sm-12 well pull-left" style="padding: 25px;">
               <%= image_tag(p.logo, class: "img-thumbnail logo pull-left") %>
               <%= link_to 'Revoke Access', providers_revoke_path + '?account=' + @account.id.to_s + '&provider=' + p.id.to_s,
                 :class => 'btn btn-danger pull-right' %>
+              <a class="btn btn-primary pull-right" style="margin-right: 10px;" role="button" data-toggle="collapse" href="#connection<%= p.id %>" aria-expanded="false" aria-controls="connection">Details</a>
               <h3 style="margin-top: 0px; margin-bottom: 0px;"><%= p.name %></h3>
               <h3 style="margin-top: 0px;"><small><%= p.contact_email %></small></h3>
+              <div class="panel panel-primary collapse" id="connection<%= p.id %>" style="margin-top: 25px;">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Connection Info</h3>
+                </div>
+                <div class="panel-body">
+                  <p>
+                    <strong>Connected:</strong> <%= @account.connections.find_by(provider_id: p.id).connected_on %></li>
+                  </p>
+                  <p style="word-wrap: break-word;">
+                    <strong>Bearer:</strong> <%= @account.connections.find_by(provider_id: p.id).bearer %>
+                  </p>
+                </div>
+              </div>
             </div>
           <% end %>
         <% else %>

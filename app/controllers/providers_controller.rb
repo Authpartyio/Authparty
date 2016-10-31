@@ -1,4 +1,5 @@
 require 'twilio-ruby'
+require 'securerandom'
 class ProvidersController < ApplicationController
   def index
   end
@@ -41,16 +42,26 @@ class ProvidersController < ApplicationController
       @account.is_verified = true
       @account.verification_code = ''
       provider = Provider.find_by(api_key: params[:api_key])
-      if @account.providers_authorized.include?(provider.id)
-        #@account.providers_authorized << provider.id
-      else
-        @account.providers_authorized << provider.id
+      provider_exists = false
+      @account.connections.each do |c|
+        if c.provider_id = provider.id
+          provider_exists = true
+        end
       end
-      @account.save
-      log_in(@account)
-      redirect_to provider.callback_url + '?success=true&address=' + @account.public_key,
-        :flash => { :success => "Thank you for loging in." }
-      return
+      if provider_exists == false
+        connection = @account.connections.new
+        connection.provider_id = provider.id
+        connection.connected_on = Time.now
+        connection.bearer = SecureRandom.hex(32)
+        connection.save
+      end
+      #if @account.providers_authorized.include?(provider.id)
+        #@account.providers_authorized << provider.id
+      #else
+      #  @account.providers_authorized << provider.id
+      #end
+      #log_in(@account)
+      redirect_to provider.callback_url + '?success=true&address=' + @account.public_key
     end
   end
 
