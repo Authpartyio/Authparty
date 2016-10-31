@@ -36,7 +36,7 @@ class ProvidersController < ApplicationController
     @account = Account.find_by(public_key: params[:public_key])
 
     if @account.is_broadcasted == false
-      redirect_to providers_login_path, :flash => { :errors =>
+      redirect_to root_url, :flash => { :errors =>
         'You must first broadcast to confirm address ownership' }
     else
       @provider = Provider.find_by(api_key: params[:api_key])
