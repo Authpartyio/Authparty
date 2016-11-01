@@ -77,7 +77,6 @@ class ProvidersController < ApplicationController
         connection.provider_id = provider.id
         connection.connected_on = Time.now
         connection.bearer = SecureRandom.hex(32)
-        provider.number_connected = provider.number_connected + 1
         provider.save
         connection.save
       end
