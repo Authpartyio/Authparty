@@ -92,7 +92,7 @@ class ProvidersController < ApplicationController
 
   def revoke
     @account = Account.find(params[:account])
-    @account.connections.find(params[:provider].to_i).destroy
+    @account.connections.find_by(provider_id: params[:provider].to_i).destroy
     @account.save
     redirect_to account_path(@account), :flash => { :success => "Integration removed from account." }
   end
