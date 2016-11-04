@@ -15,11 +15,11 @@ ActiveRecord::Schema.define(version: 20161104221656) do
   create_table "accounts", force: :cascade do |t|
     t.string   "public_key"
     t.string   "broadcast_code"
-    t.boolean  "is_broadcasted",                  default: false, null: false
+    t.boolean  "is_broadcasted",       default: false, null: false
     t.string   "providers_authorized"
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
-    t.integer  "clef_id",              limit: 10
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "clef_id"
   end
 
   create_table "connections", force: :cascade do |t|
