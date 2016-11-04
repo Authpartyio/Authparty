@@ -1,3 +1,5 @@
+require 'httparty'
+require 'json'
 class AccountsController < ApplicationController
   before_filter :check_user, only: [:show]
 
@@ -47,8 +49,23 @@ class AccountsController < ApplicationController
   end
 
   def logout
+    token = params[:logout_token]
+    data = {
+      body: {
+        logout_token: token,
+        app_id: ENV['APP_ID'],
+        app_secret: ENV['APP_SECRET']
+      }
+    }
+    url = 'https://clef.io/api.v1/logout'
+    response = HTTParty.post(url, data)
+    if response['success']
+      clef_id = response['clef_id']
+    else
+      p response['error']
+    end
     session.delete :user
-    redirect_to root_url
+    redirect_to root_url, :flash => { success => 'You have been logged out.' }
   end
 
   protected
