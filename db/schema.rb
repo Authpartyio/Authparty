@@ -10,18 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161031200846) do
+ActiveRecord::Schema.define(version: 20161104221656) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "public_key"
-    t.string   "mobile_number"
-    t.string   "verification_code"
-    t.boolean  "is_verified"
     t.string   "broadcast_code"
-    t.boolean  "is_broadcasted",       default: false, null: false
+    t.boolean  "is_broadcasted",                  default: false, null: false
     t.string   "providers_authorized"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.integer  "clef_id",              limit: 10
   end
 
   create_table "connections", force: :cascade do |t|

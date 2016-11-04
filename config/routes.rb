@@ -17,16 +17,17 @@ Rails.application.routes.draw do
 
   get 'broadcast' => 'verifications#confirm_broadcast'
 
-  get 'login'            => 'sessions#new'
-  post 'login'           => 'sessions#create'
-  get 'verify_login'     => 'sessions#confirm_code'
-  patch 'verify_login'   => 'sessions#confirm_accepted'
-  get 'logout'           => 'sessions#destroy'
+  resources :accounts do
+    collection do
+      get 'logout'
+    end
+  end
+
+  get 'login' => 'accounts#new'
+  match '/auth/:provider/callback', to: 'accounts#create', via: [:get, :post]
 
   resources :providers
   get 'providers_login'            => 'providers#login_form'
-  patch 'providers_authenticate'   => 'providers#authenticate'
+  get 'providers_authenticate'   => 'providers#authenticate'
   get 'providers_revoke'           => 'providers#revoke'
-
-  resources :accounts
 end

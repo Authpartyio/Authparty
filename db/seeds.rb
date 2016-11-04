@@ -8,8 +8,8 @@
 
 Account.create(
   public_key: '16gHsttasFz8T48MFsfzq199esvWTJGn94',
-  mobile_number: '12173816391',
-  broadcast_code: 'JvndCVLBWuiLcOk'
+  broadcast_code: 'JvndCVLBWuiLcOk',
+  clef_id: '9347957915'
 )
 
 Provider.create(

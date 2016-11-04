@@ -29,13 +29,11 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
-gem 'phonelib'
 gem 'dotenv-rails'
-gem 'twilio-ruby'
 gem 'counterparty_ruby'
 gem 'httparty'
 gem 'json'
+gem 'omniauth-clef'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
