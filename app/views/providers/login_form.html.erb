@@ -18,23 +18,14 @@
         </div>
         <div class="headline center-block" style="position: relative; top: 15px;">
           <h2><%= @provider.name %></h2>
-          <h3>Is requesting to authorize you using your Authparty account.</h3>
+          <h3>Is requesting to authorize you using your Authparty account. Would you like
+           to authorize this action?</h3>
         </div>
       </div>
       <div class="row" style="margin-top: 35px;">
         <div class="col-sm-8 col-sm-offset-2 well well-lg">
-          <h3 align="center">Enter SMS Confirmation Code</h3>
-          <div class="row" style="margin-top: 25px;">
-            <div class="col-sm-6 col-sm-offset-3">
-            <%= form_tag(providers_authenticate_path, method: "patch") %>
-              <div class="col-sm-12 form-group center-block">
-                <%= hidden_field_tag(:public_key, @account.public_key) %>
-                <%= hidden_field_tag(:api_key, @provider.api_key) %>
-                <%= text_field_tag(:verification_code, "", class: 'form-control') %>
-              </div>
-              <%= button_tag('Authorize', type: "submit", class: 'btn btn-primary center-block') %>
-            </form>
-          </div>
+          <%= link_to 'Confirm', providers_authenticate_path + '?api_key=' + @provider.api_key,
+            :class => 'btn btn-lg btn-primary center-block' %>
         </div>
       </div>
     </div>

@@ -15,6 +15,6 @@ Searching broadcasts for <%= @account.public_key %>
     <% end %>
   </p>
   <% if @result == 'Found matching broadcast!' %>
-    <%= link_to 'Next: Confirm phone number', '/send_sms?id=' + @account.id.to_s %>
+    <%= link_to 'Back to Account', account_path(@account) %>
   <% end %>
 <% end %>

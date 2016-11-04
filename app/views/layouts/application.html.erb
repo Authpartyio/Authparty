@@ -27,9 +27,13 @@
           <ul class="nav navbar-nav navbar-right">
             <% if logged_in? %>
             <li><%= link_to 'Account', account_path(current_user) %></li>
-            <li><%= link_to 'Logout', logout_path %></li>
+            <li><%= link_to 'Logout', logout_accounts_path %></li>
             <% else %>
-              <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
+              <li class="login-btn">
+                <script type="text/javascript" class="clef-button" src="https://clef.io/v3/clef.js"
+                  data-app-id="ee62d01869399bd52e848568c57cff00" data-redirect-url="http://localhost:3000/auth/clef/callback">
+                </script>
+              </li>
             <% end %>
           </ul>
         </div><!-- /.navbar-collapse -->

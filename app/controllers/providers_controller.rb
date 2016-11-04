@@ -1,4 +1,3 @@
-require 'twilio-ruby'
 require 'securerandom'
 class ProvidersController < ApplicationController
   def index
@@ -33,61 +32,40 @@ class ProvidersController < ApplicationController
   end
 
   def login_form
-    @account = Account.find_by(public_key: params[:public_key])
+    @provider = Provider.find_by(api_key: params[:api_key])
+    if logged_in? && @provider != nil
+      @account = Account.find(current_user)
+      if @account.is_broadcasted == false
+        redirect_to root_url, :flash => { :errors =>
+          'You must first broadcast to confirm address ownership' }
+      else
 
-    if @account.is_broadcasted == false
-      redirect_to root_url, :flash => { :errors =>
-        'You must first broadcast to confirm address ownership' }
-    else
-      @provider = Provider.find_by(api_key: params[:api_key])
-      @title = 'Authorize ' + @provider.name
-      @account.verification_code = 1_000_000 + rand(10_000_000 - 1_000_000)
-      @account.save
-
-      to = @account.mobile_number
-      if to[0] = "0"
-        to.sub!("0", '+1')
+        @title = 'Authorize ' + @provider.name
+        render :layout => false
       end
-
-      @twilio_client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
-      @twilio_client.account.sms.messages.create(
-        :from => ENV['TWILIO_PHONE_NUMBER'],
-        :to => to,
-        :body => "A login request to #{@provider.name} has been made.\n\n Your verification code is #{@account.verification_code}."
-      )
-
-      render :layout => false
+    else
+      redirect_to root_url, :flash => { :errors => 'Must be logged in.' }
     end
   end
 
   def authenticate
-    @account = Account.find_by(public_key: params[:public_key])
-    if @account.verification_code == params[:verification_code]
-      @account.is_verified = true
-      @account.verification_code = ''
-      provider = Provider.find_by(api_key: params[:api_key])
-      provider_exists = false
-      @account.connections.each do |c|
-        if c.provider_id = provider.id
-          provider_exists = true
-        end
+    @account = Account.find(current_user)
+    provider = Provider.find_by(api_key: params[:api_key])
+    provider_exists = false
+    @account.connections.each do |c|
+      if c.provider_id = provider.id
+        provider_exists = true
       end
-      if provider_exists == false
-        connection = @account.connections.new
-        connection.provider_id = provider.id
-        connection.connected_on = Time.now
-        connection.bearer = SecureRandom.hex(32)
-        provider.save
-        connection.save
-      end
-      #if @account.providers_authorized.include?(provider.id)
-        #@account.providers_authorized << provider.id
-      #else
-      #  @account.providers_authorized << provider.id
-      #end
-      #log_in(@account)
-      redirect_to provider.callback_url + '?success=true&address=' + @account.public_key
     end
+    if provider_exists == false
+      connection = @account.connections.new
+      connection.provider_id = provider.id
+      connection.connected_on = Time.now
+      connection.bearer = SecureRandom.hex(32)
+      provider.save
+      connection.save
+    end
+    redirect_to provider.callback_url + '?success=true&address=' + @account.public_key
   end
 
   def revoke
