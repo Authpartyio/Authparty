@@ -68,6 +68,11 @@ class AccountsController < ApplicationController
     redirect_to root_url, :flash => { :success => 'You have been logged out.' }
   end
 
+  def generate_code(number)
+    charset = Array('A'..'Z') + Array('a'..'z')
+    Array.new(number) { charset.sample }.join
+  end
+
   protected
   def check_user
     @user = Account.find(session[:user])
