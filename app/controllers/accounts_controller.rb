@@ -65,7 +65,7 @@ class AccountsController < ApplicationController
       p response['error']
     end
     session.delete :user
-    redirect_to root_url, :flash => { success => 'You have been logged out.' }
+    redirect_to root_url, :flash => { :success => 'You have been logged out.' }
   end
 
   protected
