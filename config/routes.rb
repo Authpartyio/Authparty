@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   resources :accounts do
     collection do
-      get 'logout'
+      match 'logout', to: 'accounts#logout', via: [:get, :post]
     end
   end
 
