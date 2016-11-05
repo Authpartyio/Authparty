@@ -66,7 +66,7 @@ class AccountsController < ApplicationController
       account.save
       redirect_to root_url, :flash => { :success => 'You have been logged out.' }
     else
-      p 'Error: ' + response.response
+      p response.response
     end
     #session.delete :user
     #account = Account.find(session[:user])
