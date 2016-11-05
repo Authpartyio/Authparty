@@ -61,6 +61,8 @@ class AccountsController < ApplicationController
     response = HTTParty.post(url, data)
     if response['success']
       clef_id = response['clef_id']
+      session.delete :user
+      redirect_to root_url, :flash => { :success => 'You have been logged out.' }
     else
       p response['error']
     end
