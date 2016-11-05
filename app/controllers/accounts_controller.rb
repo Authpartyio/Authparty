@@ -54,8 +54,7 @@ class AccountsController < ApplicationController
 
   def update
     @account = Account.find(params[:id])
-    @account.public_key = params[:public_key]
-    @account.save
+    @account.update(public_key: params[:public_key])
     redirect_to account_path(@account), :flash => { :success => 'Account updated.' }
   end
 
