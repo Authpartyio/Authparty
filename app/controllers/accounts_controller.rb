@@ -66,13 +66,13 @@ class AccountsController < ApplicationController
       account.save
       redirect_to root_url, :flash => { :success => 'You have been logged out.' }
     else
-      p response['error']
+      p 'Error: ' + response['error']
     end
     #session.delete :user
     #account = Account.find(session[:user])
     #account.logged_out_at = Time.now
     #account.save
-    redirect_to root_url, :flash => { :success => 'You have been logged out.' }
+    #redirect_to root_url, :flash => { :success => 'You have been logged out.' }
   end
 
   def generate_code(number)
