@@ -8,9 +8,9 @@ module AccountsHelper
       account = Account.find(session[:user])
       if account.logged_out_at != nil
         if session[:logged_in_at] < account.logged_out_at
-          return true
-        else
           return false
+        else
+          return true
         end
       end
     else
