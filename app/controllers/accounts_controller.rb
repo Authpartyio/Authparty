@@ -74,6 +74,7 @@ class AccountsController < ApplicationController
       account = Account.find_by(clef_id: clef_id)
       account.logged_out_at = Time.now
       account.save
+      session.delete :user
     else
       p response.response
     end
