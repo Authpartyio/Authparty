@@ -4,13 +4,15 @@ module AccountsHelper
   end
 
   def logged_in?
-    if !session[:user].nil?
+    if session[:user] != nil
       account = Account.find(session[:user])
       if session[:logged_in_at] > account.logged_out_at
         return true
       else
         return false
       end
+    else
+      return false;
     end
   end
 end
