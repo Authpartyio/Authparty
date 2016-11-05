@@ -25,7 +25,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <% if logged_in? %>
+            <% if logged_in == true %>
             <li><%= link_to 'Account', account_path(current_user) %></li>
             <li><%= link_to 'Logout', logout_accounts_path %></li>
             <% else %>
