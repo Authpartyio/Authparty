@@ -48,6 +48,10 @@ class AccountsController < ApplicationController
     end
   end
 
+  def edit
+    @account = Account.find(params[:id])
+  end
+
   def update
     @account = Account.find(params[:id])
     @account.public_key = params[:public_key]
