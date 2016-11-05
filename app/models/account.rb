@@ -1,5 +1,5 @@
 class Account < ApplicationRecord
-  validates :public_key, presence: false, allow_blank: true, uniqueness: true,
+  validates :public_key, allow_blank: true, uniqueness: true,
             length: { minimum: 26, maximum: 35 }
   has_many :connections
 
