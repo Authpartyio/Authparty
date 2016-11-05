@@ -27,7 +27,6 @@
           <ul class="nav navbar-nav navbar-right">
             <% if logged_in == true %>
             <li><%= link_to 'Account', account_path(current_user) %></li>
-            <li><%= link_to 'Logout', logout_accounts_path %></li>
             <% else %>
               <li class="login-btn">
                 <script type="text/javascript" class="clef-button" src="https://clef.io/v3/clef.js"

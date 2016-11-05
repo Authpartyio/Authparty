@@ -64,15 +64,10 @@ class AccountsController < ApplicationController
       account = Account.find_by(clef_id: clef_id)
       account.logged_out_at = Time.now
       account.save
-      redirect_to root_url, :flash => { :success => 'You have been logged out.' }
+      render js: "window.location.reload();"
     else
       p response.response
     end
-    #session.delete :user
-    #account = Account.find(session[:user])
-    #account.logged_out_at = Time.now
-    #account.save
-    #redirect_to root_url, :flash => { :success => 'You have been logged out.' }
   end
 
   def generate_code(number)
