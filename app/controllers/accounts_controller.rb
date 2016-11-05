@@ -66,6 +66,7 @@ class AccountsController < ApplicationController
       account.logged_out_at = Date.now
       account.save
       redirect_to root_url, :flash => { :success => 'You have been logged out.' }
+      break
     else
       p response['error']
     end
