@@ -48,6 +48,13 @@ class AccountsController < ApplicationController
     end
   end
 
+  def update
+    @account = Account.find(params[:id])
+    @account.public_key = params[:public_key]
+    @account.save
+    redirect_to account_path(@account), :flash => { :success => 'Account updated.' }
+  end
+
   def logout
     token = params[:logout_token]
     data = {
@@ -64,7 +71,6 @@ class AccountsController < ApplicationController
       account = Account.find_by(clef_id: clef_id)
       account.logged_out_at = Time.now
       account.save
-      render js: "window.location.reload();"
     else
       p response.response
     end
