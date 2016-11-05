@@ -26,6 +26,7 @@ class AccountsController < ApplicationController
         notice = 'User was created.'
       end
       session[:user] = @account.id
+      session[:logged_in_at] = Time.now
       redirect_to account_path(@account), :flash => { :success => notice }
     else
       redirect_to new_account_url, :flash => { :errors => @account.errors }
@@ -61,12 +62,17 @@ class AccountsController < ApplicationController
     response = HTTParty.post(url, data)
     if response['success']
       clef_id = response['clef_id']
-      session.delete :user
+      account = Account.find_by(clef_id: clef_id)
+      account.logged_out_at = Date.now
+      account.save
       redirect_to root_url, :flash => { :success => 'You have been logged out.' }
     else
       p response['error']
     end
-    session.delete :user
+    #session.delete :user
+    account = Account.find(session[:user])
+    account.logged_out_at = Time.now
+    account.save
     redirect_to root_url, :flash => { :success => 'You have been logged out.' }
   end
 

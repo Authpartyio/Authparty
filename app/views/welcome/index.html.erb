@@ -18,7 +18,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12 col-md-8 col-md-offset-2 well">
-        <% if current_user != nil && current_user.public_key != nil && current_user.is_broadcasted == true %>
+        <% if logged_in? && current_user.public_key != nil && current_user.is_broadcasted == true %>
           <h5>Mirror below button to trigger an authorization.</h5>
           <%= link_to 'Login with Authparty Example', providers_login_path + '?api_key=' + Provider.find(1).api_key + '&public_key=' + current_user.public_key,
             :onclick=>"window.open(this.href,'create_company', 'height=475, width=800');return false;" %>
