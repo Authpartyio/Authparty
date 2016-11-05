@@ -57,7 +57,7 @@ class AccountsController < ApplicationController
         app_secret: ENV['APP_SECRET']
       }
     }
-    url = 'https://clef.io/api.v1/logout'
+    url = 'https://clef.io/api/v1/logout'
     response = HTTParty.post(url, data)
     if response.success?
       clef_id = response['clef_id']
