@@ -62,7 +62,7 @@ class AccountsController < ApplicationController
     if response.success?
       clef_id = response['clef_id']
       account = Account.find_by(clef_id: clef_id)
-      account.logged_out_at = Date.now
+      account.logged_out_at = Time.now
       account.save
       redirect_to root_url, :flash => { :success => 'You have been logged out.' }
     else
