@@ -42,7 +42,7 @@
       </div>
       <div class="panel-body">
         <p>
-          <h5>My Address</h5>
+          <h5><strong>My Address</strong></h5>
           <% if @account.public_key != nil %>
             <%= @account.public_key %>
           <% else %>
@@ -50,11 +50,11 @@
           <% end %>
         </p>
         <p>
-          <h5>Address Verification</h5>
+          <h5><strong>Address Verification</strong></h5>
           <%= @response %>
         </p>
         <p>
-          <% if @account.is_broadcasted == false %>
+          <% if @account.is_broadcasted == false && @account.public_key != nil %>
             <strong>Please Broadcast the following in your wallet:</strong>
             <h5>AUTHPARTY VERIFY-ADDRESS <%= @account.broadcast_code %></h5>
             <strong>Wait for one confirmation then check:</strong>
