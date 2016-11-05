@@ -1,7 +1,6 @@
 require 'httparty'
 require 'json'
 class AccountsController < ApplicationController
-  before_filter :check_user, only: [:show]
 
   def index
     @title = "All Accounts"
@@ -85,7 +84,7 @@ class AccountsController < ApplicationController
   protected
   def check_user
     @user = Account.find(session[:user])
-    redirect_to root_path if @user == nil
+    redirect_to root_path if @user = nil
   end
 
   private
