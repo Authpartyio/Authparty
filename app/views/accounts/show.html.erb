@@ -43,7 +43,7 @@
       <div class="panel-body">
         <p>
           <h5>My Address</h5>
-          <% if @account.public_key != nil %>
+          <% if @account.public_key != "" %>
             <%= @account.public_key %>
           <% else %>
             <%= link_to 'Add address', edit_account_path(@account) %>
