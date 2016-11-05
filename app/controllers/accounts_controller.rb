@@ -59,14 +59,14 @@ class AccountsController < ApplicationController
     }
     url = 'https://clef.io/api.v1/logout'
     response = HTTParty.post(url, data)
-    if response['success']
+    if response.success?
       clef_id = response['clef_id']
       account = Account.find_by(clef_id: clef_id)
       account.logged_out_at = Date.now
       account.save
       redirect_to root_url, :flash => { :success => 'You have been logged out.' }
     else
-      p 'Error: ' + response['error']
+      p 'Error: ' + response.response
     end
     #session.delete :user
     #account = Account.find(session[:user])
