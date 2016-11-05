@@ -65,14 +65,13 @@ class AccountsController < ApplicationController
       account.logged_out_at = Date.now
       account.save
       redirect_to root_url, :flash => { :success => 'You have been logged out.' }
-      break
     else
       p response['error']
     end
     #session.delete :user
-    account = Account.find(session[:user])
-    account.logged_out_at = Time.now
-    account.save
+    #account = Account.find(session[:user])
+    #account.logged_out_at = Time.now
+    #account.save
     redirect_to root_url, :flash => { :success => 'You have been logged out.' }
   end
 
