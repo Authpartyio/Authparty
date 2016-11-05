@@ -12,6 +12,8 @@ module AccountsHelper
         else
           return true
         end
+      else
+        return true;
       end
     else
       return false;

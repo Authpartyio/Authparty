@@ -30,7 +30,7 @@
             <% else %>
               <li class="login-btn">
                 <script type="text/javascript" class="clef-button" src="https://clef.io/v3/clef.js"
-                  data-app-id="<%= ENV['APP_ID'] %>" data-redirect-url="https://authparty.herokuapp.com/auth/clef/callback">
+                  data-app-id="<%= ENV['APP_ID'] %>" data-redirect-url="<%= ENV['CLEF_CALLBACK_URL'] %>">
                 </script>
               </li>
             <% end %>

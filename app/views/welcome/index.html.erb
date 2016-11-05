@@ -7,9 +7,6 @@
       <% if logged_in == true %>
       <%= link_to 'My Authparty', account_path(current_user), :class => 'btn btn-primary btn-lg',
         :role => 'button' %></p>
-      <% else %>
-        <%= link_to 'Get started', new_account_path, :class => 'btn btn-primary btn-lg',
-          :role => 'button' %></p>
       <% end %>
   </div>
 </div>

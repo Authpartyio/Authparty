@@ -33,13 +33,12 @@ class ProvidersController < ApplicationController
 
   def login_form
     @provider = Provider.find_by(api_key: params[:api_key])
-    if logged_in? && @provider != nil
+    if logged_in == true && @provider != nil
       @account = Account.find(current_user)
       if @account.is_broadcasted == false
         redirect_to root_url, :flash => { :errors =>
           'You must first broadcast to confirm address ownership' }
       else
-
         @title = 'Authorize ' + @provider.name
         render :layout => false
       end
@@ -62,6 +61,7 @@ class ProvidersController < ApplicationController
       connection.provider_id = provider.id
       connection.connected_on = Time.now
       connection.bearer = SecureRandom.hex(32)
+      provider.number_connected += 1
       provider.save
       connection.save
     end
