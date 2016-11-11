@@ -1,7 +1,7 @@
 require 'httparty'
 require 'json'
 class AccountsController < ApplicationController
-
+  before_action :authenticate_user!, only: [:index, :show, :edit]
   def index
     @title = "All Accounts"
     @account = Account.all
