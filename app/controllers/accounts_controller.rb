@@ -8,27 +8,33 @@ class AccountsController < ApplicationController
   end
 
   def new
-    @title = "Create Account"
     @account = Account.new
+    @title = "Login"
+    @generated_message = 'Authparty Login ' + generate_code(15)
+    @generated_signature = 'Authparty Login ' + generate_code(15)
   end
 
   def create
-    p request.env['omniauth.auth']
-    @account = Account.find_or_create_from_auth_hash(request.env['omniauth.auth'])
-    if @account.broadcast_code == nil
-      @account.broadcast_code = generate_code(15)
-    end
-    if @account.save
-      if @account.persisted?
-        notice = 'User was logged in.'
-      else
-        notice = 'User was created.'
+    if BitcoinCigs.verify_message(params[:account][:public_key],
+      params[:account][:generated_signature], params[:account][:generated_message])
+      @account = Account.find_or_create_from_wallet_address(params[:account][:public_key])
+      if @account.broadcast_code == nil
+        @account.broadcast_code = generate_code(15)
       end
-      session[:user] = @account.id
-      session[:logged_in_at] = Time.now
-      redirect_to account_path(@account), :flash => { :success => notice }
+      if @account.save
+        if @account.persisted?
+          notice = 'User was logged in.'
+        else
+          notice = 'User was created.'
+        end
+        session[:user] = @account.id
+        session[:logged_in_at] = Time.now
+        redirect_to account_path(@account), :flash => { :success => notice }
+      else
+        redirect_to new_account_url, :flash => { :errors => @account.errors }
+      end
     else
-      redirect_to new_account_url, :flash => { :errors => @account.errors }
+      redirect_to new_account_url, :flash => { :errors => 'We could not confirm your authorization.' }
     end
   end
 
@@ -59,25 +65,11 @@ class AccountsController < ApplicationController
   end
 
   def logout
-    token = params[:logout_token]
-    data = {
-      body: {
-        logout_token: token,
-        app_id: ENV['APP_ID'],
-        app_secret: ENV['APP_SECRET']
-      }
-    }
-    url = 'https://clef.io/api/v1/logout'
-    response = HTTParty.post(url, data)
-    if response.success?
-      clef_id = response['clef_id']
-      account = Account.find_by(clef_id: clef_id)
-      account.logged_out_at = Time.now
-      account.save
-      session.delete :user
-    else
-      p response.response
-    end
+    account = Account.find(session[:user])
+    account.logged_out_at = Time.now
+    account.save
+    session.delete :user
+    redirect_to root_url, :flash => { :success => 'User logged out.' }
   end
 
   def generate_code(number)

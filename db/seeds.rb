@@ -8,8 +8,7 @@
 
 Account.create(
   public_key: '16gHsttasFz8T48MFsfzq199esvWTJGn94',
-  broadcast_code: 'JvndCVLBWuiLcOk',
-  clef_id: '288548819'
+  broadcast_code: 'JvndCVLBWuiLcOk'
 )
 
 Provider.create(
