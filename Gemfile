@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.3.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
@@ -34,6 +34,7 @@ gem 'dotenv-rails'
 gem 'httparty'
 gem 'json'
 gem 'bitcoin-cigs', '~> 0.0.7'
+gem 'omniauth-clef'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

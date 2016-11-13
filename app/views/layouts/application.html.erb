@@ -25,11 +25,14 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <% if logged_in? %>
+            <% if logged_in == true %>
             <li><%= link_to 'Account', account_path(current_user) %></li>
-            <li><%= link_to 'Logout', logout_path %></li>
             <% else %>
-              <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
+              <li class="login-btn">
+                <script type="text/javascript" class="clef-button" src="https://clef.io/v3/clef.js"
+                  data-app-id="<%= ENV['APP_ID'] %>" data-redirect-url="<%= ENV['CLEF_CALLBACK_URL'] %>">
+                </script>
+              </li>
             <% end %>
           </ul>
         </div><!-- /.navbar-collapse -->
