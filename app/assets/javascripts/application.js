@@ -17,3 +17,10 @@
 //= require bootstrap-sprockets
 
 $('a[data-popup]').on('click', function(e) { window.open($(this).attr('href')); e.preventDefault(); });
+
+$(document).ready(function() {
+  $('#copy-message').click(function() {
+    clipboard.copy($('#message').val());
+    $('#copy-message').tooltip('show');
+  });
+});

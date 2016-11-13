@@ -17,9 +17,17 @@
           </div>
         <% end %>
         <p>
-          <h3>Message</h3>
-          <%= f.text_field :generated_message, value: @generated_message, class: 'form-control', :readonly => true %>
-          <span class="help-block">Sign above message in your wallet of choice and paste the base64 result below.</span>
+          <div class="form-group">
+            <h3>Message</h3>
+            <div class="input-group">
+              <%= f.text_field :generated_message, value: @generated_message,
+                class: 'form-control', id: 'message', readonly: true, autofocus: true %>
+                <div class="input-group-addon" id="copy-message" data-toggle="tooltip" data-placement="right" title="Copied!">
+                  <span class="glyphicon glyphicon-copy" aria-hidden="true"/>
+                </div>
+            </div>
+            <span class="help-block">Sign above message in your wallet of choice and paste the base64 result below.</span>
+          </div>
         </p>
         <p>
           <h3>Signature</h3>
