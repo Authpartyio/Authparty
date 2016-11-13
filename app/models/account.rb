@@ -3,11 +3,11 @@ class Account < ApplicationRecord
             length: { minimum: 26, maximum: 35 }
   has_many :connections
 
-  def self.find_or_create_from_auth_hash(auth_hash)
-    if account = Account.find_by(clef_id: auth_hash[:uid])
+  def self.find_or_create_from_wallet_address(public_key)
+    if account = Account.find_by(public_key: public_key)
       return account
     else
-      Account.create(clef_id: auth_hash[:uid])
+      Account.create(public_key: public_key)
     end
   end
 end

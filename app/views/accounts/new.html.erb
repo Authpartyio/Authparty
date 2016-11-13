@@ -1,39 +1,41 @@
-<!-- <%= form_for :account, url: accounts_path do |f| %>
-  <% if @account.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@account.errors.count, "error") %> prohibited
-        this article from being saved:
-      </h2>
-      <ul>
-        <% @account.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <p>
-    <%= f.label :public_key %> (address)<br>
-    <%= f.text_field :public_key %>
-  </p>
-
-  <p>
-    <%= f.label :mobile_number %><br>
-    <%= f.text_field :mobile_number %>
-  </p>
-
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %> -->
-
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-md-6 col-lg-4 col-md-offset-3 col-lg-offset-4">
-      <h3 class="center-block">Signin with Clef</h3>
-      <script type="text/javascript" class="clef-button center-block" src="https://clef.io/v3/clef.js"
-        data-app-id="ee62d01869399bd52e848568c57cff00" data-redirect-url="https://authparty.herokuapp.com/auth/clef/callback">
-      </script>
+      <h1 class="text-center" style="margin-bottom: 35px;">Wallet Login</h1>
+      <%= form_for @account, url: accounts_path, method: 'POST' do |f| %>
+        <% if @account.errors.any? %>
+          <div id="error_explanation">
+            <h2>
+              <%= pluralize(@account.errors.count, "error") %> prohibited
+              this article from being saved:
+            </h2>
+            <ul>
+              <% @account.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <p>
+          <h3>Message</h3>
+          <%= f.text_field :generated_message, value: @generated_message, class: 'form-control', :readonly => true %>
+          <span class="help-block">Sign above message in your wallet of choice and paste the base64 result below.</span>
+        </p>
+        <p>
+          <h3>Signature</h3>
+          <%= f.text_field :generated_signature, value: '', class: 'form-control' %>
+          <span class="help-block">Paste signed result from your wallet.</span>
+        </p>
+        <p>
+          <h3>Address</h3>
+          <%= f.text_field :public_key, class: 'form-control' %>
+          <span class="help-block">The address you signed the message with.</span>
+        </p>
+
+        <p>
+          <%= f.submit 'Authenticate', class: 'btn btn-primary' %>
+        </p>
+      <% end %>
     </div>
   </div>
 </div>

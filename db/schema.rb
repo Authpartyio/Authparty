@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161105011218) do
+ActiveRecord::Schema.define(version: 20161113031234) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "public_key"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20161105011218) do
     t.string   "providers_authorized"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
-    t.string   "clef_id"
     t.datetime "logged_out_at"
   end
 

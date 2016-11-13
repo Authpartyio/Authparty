@@ -41,7 +41,7 @@ GEM
     arel (7.1.4)
     autoprefixer-rails (6.5.1.1)
       execjs
-    bitcoin-ruby (0.0.9)
+    bitcoin-cigs (0.0.7)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -55,28 +55,16 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.2)
-    counterparty_ruby (1.2.0)
-      bitcoin-ruby
-      ffi
-      rest-client
-      ruby-rc4
     debug_inspector (0.0.2)
-    domain_name (0.5.20160826)
-      unf (>= 0.0.5, < 1.0.0)
     dotenv (2.1.1)
     dotenv-rails (2.1.1)
       dotenv (= 2.1.1)
       railties (>= 4.0, < 5.1)
     erubis (2.7.0)
     execjs (2.7.0)
-    faraday (0.9.2)
-      multipart-post (>= 1.2, < 3)
     ffi (1.9.14)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
-    hashie (3.4.6)
-    http-cookie (1.0.3)
-      domain_name (~> 0.5)
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
@@ -88,7 +76,6 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
-    jwt (1.5.6)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -104,25 +91,9 @@ GEM
     minitest (5.9.1)
     multi_json (1.12.1)
     multi_xml (0.5.5)
-    multipart-post (2.0.0)
-    netrc (0.11.0)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
-    oauth2 (1.2.0)
-      faraday (>= 0.8, < 0.10)
-      jwt (~> 1.0)
-      multi_json (~> 1.3)
-      multi_xml (~> 0.5)
-      rack (>= 1.2, < 3)
-    omniauth (1.3.1)
-      hashie (>= 1.2, < 4)
-      rack (>= 1.0, < 3)
-    omniauth-clef (1.0.3)
-      omniauth-oauth2 (~> 1.1)
-    omniauth-oauth2 (1.4.0)
-      oauth2 (~> 1.0)
-      omniauth (~> 1.2)
     pg (0.18.3)
     puma (3.6.0)
     rack (2.0.1)
@@ -155,11 +126,6 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
-    rest-client (2.0.0)
-      http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 4.0)
-      netrc (~> 0.8)
-    ruby-rc4 (0.1.5)
     sass (3.4.22)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -190,9 +156,6 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.3)
       execjs (>= 0.3.0, < 3)
-    unf (0.1.4)
-      unf_ext
-    unf_ext (0.0.7.2)
     web-console (3.3.1)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -206,17 +169,16 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bitcoin-cigs (~> 0.0.7)
   bootstrap-sass (~> 3.3.6)
   byebug
   coffee-rails (~> 4.2)
-  counterparty_ruby
   dotenv-rails
   httparty
   jbuilder (~> 2.5)
   jquery-rails
   json
   listen (~> 3.0.5)
-  omniauth-clef
   pg
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
@@ -228,9 +190,3 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console
-
-RUBY VERSION
-   ruby 2.3.0p0
-
-BUNDLED WITH
-   1.13.6

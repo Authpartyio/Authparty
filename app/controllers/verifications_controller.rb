@@ -1,4 +1,3 @@
-require 'counterparty_ruby'
 require 'json'
 class VerificationsController < ApplicationController
   def confirm_broadcast
