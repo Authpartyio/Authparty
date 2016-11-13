@@ -23,4 +23,11 @@ $(document).ready(function() {
     clipboard.copy($('#message').val());
     $('#copy-message').tooltip('show');
   });
+
+  $('#sign-toggle').click(function() {
+    $('.sign-modal').modal('toggle');
+    setTimeout(function() {
+        $(".sign-modal .modal-body").html("<%= j render(:file => 'welcome/index.html.erb') %>");
+    }, 1000);
+  });
 });
