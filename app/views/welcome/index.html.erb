@@ -15,14 +15,11 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12 col-md-8 col-md-offset-2 well">
-        <% if logged_in == true && current_user.public_key != nil && current_user.is_broadcasted == true %>
-          <h5>Mirror below button to trigger an authorization.</h5>
-          <%= link_to 'Login with Authparty Example', providers_login_path + '?api_key=' + Provider.find(1).api_key + '&public_key=' + current_user.public_key,
-            :onclick=>"window.open(this.href,'create_company', 'height=475, width=800');return false;" %>
-          <pre style="margin-top: 15px;">&lt;a onclick="window.open(this.href,'create_company', 'height=475, width=800');return false;" href="https://authparty.herokuapp.com/providers_login?api_key=<%= Provider.find(1).api_key %>&amp;public_key=16gHsttasFz8T48MFsfzq199esvWTJGn94"&gt;Login with Authparty Example&lt;/a&gt;</pre>
-        <% else %>
-          <h5 align="center">A example login integration will appear after signin and address confirmation.</h5>
-        <% end %>
+        <h5>Mirror below button to trigger an authorization.</h5>
+        <%= link_to 'Login with Authparty Example', providers_login_path + '?api_key=' + Provider.find(1).api_key,
+          :onclick=>"window.open(this.href,'create_company', 'height=475, width=800');return false;" %>
+        <pre style="margin-top: 15px;">&lt;a onclick="window.open(this.href,'create_company', 'height=475, width=800');return false;" href="https://authparty.herokuapp.com/providers_login?api_key=<%= Provider.find(1).api_key %>&amp;public_key=16gHsttasFz8T48MFsfzq199esvWTJGn94"&gt;Login with Authparty Example&lt;/a&gt;</pre>
+        <h5 align="center">Token-based Providers Require Confirmed Broadcasts.</h5>
       </div>
     </div>
   </div>

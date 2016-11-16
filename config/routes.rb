@@ -27,5 +27,5 @@ Rails.application.routes.draw do
   get 'providers_authenticate'   => 'providers#authenticate'
   get 'providers_revoke'           => 'providers#revoke'
 
-  get 'api'        => 'api#index'
+  mount Authparty::API => '/api'
 end

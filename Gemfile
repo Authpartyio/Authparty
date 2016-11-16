@@ -34,7 +34,7 @@ gem 'dotenv-rails'
 gem 'httparty'
 gem 'json'
 gem 'bitcoin-cigs', '~> 0.0.7'
-gem 'responders'
+gem 'grape'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

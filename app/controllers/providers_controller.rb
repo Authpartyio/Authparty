@@ -1,6 +1,6 @@
 require 'securerandom'
 class ProvidersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:index, :show, :edit]
   def index
     if current_user == nil
       redirect_to root_url, :flash => { :errors => 'You must be logged in
@@ -44,7 +44,7 @@ class ProvidersController < ApplicationController
         render :layout => false
       end
     else
-      redirect_to root_url, :flash => { :errors => 'Must be logged in.' }
+      redirect_to new_account_url + '?redirect=' + @provider.api_key
     end
   end
 

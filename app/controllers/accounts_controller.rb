@@ -29,7 +29,11 @@ class AccountsController < ApplicationController
         end
         session[:user] = @account.id
         session[:logged_in_at] = Time.now
-        redirect_to account_path(@account), :flash => { :success => notice }
+        if params[:account][:redirect] != nil
+          redirect_to providers_login_url + '?api_key=' + params[:account][:redirect]
+        else
+          redirect_to account_path(@account), :flash => { :success => notice }
+        end
       else
         redirect_to new_account_url, :flash => { :errors => @account.errors }
       end

@@ -43,6 +43,9 @@
         </p>
 
         <p>
+          <% if params[:redirect] != nil %>
+            <%= f.hidden_field 'redirect', value: params[:redirect] %>
+          <% end %>
           <%= f.submit 'Authenticate', class: 'btn btn-primary' %>
         </p>
       <% end %>
