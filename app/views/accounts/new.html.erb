@@ -1,67 +1,139 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12 col-md-6 col-lg-4 col-md-offset-3 col-lg-offset-4">
-      <h1 class="text-center" style="margin-bottom: 35px;">Wallet Login</h1>
-      <%= form_for @account, url: accounts_path, method: 'POST' do |f| %>
-        <% if @account.errors.any? %>
-          <div id="error_explanation">
-            <h2>
-              <%= pluralize(@account.errors.count, "error") %> prohibited
-              this article from being saved:
-            </h2>
-            <ul>
-              <% @account.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-        <p>
-          <div class="form-group">
-            <h3>Message</h3>
-            <div class="input-group">
-              <%= f.text_field :generated_message, value: @generated_message,
-                class: 'form-control', id: 'message', readonly: true, autofocus: true %>
-                <div class="input-group-addon" id="copy-message" data-toggle="tooltip" data-placement="right" title="Copied!">
-                  <span class="glyphicon glyphicon-copy" aria-hidden="true"/>
+<% if params[:redirect] != nill %>
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title><%= @title %> | Authparty</title>
+      <%= csrf_meta_tags %>
+
+      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+      <style>
+        body { padding: 20px 15px 20px 15px; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-4 col-md-offset-3 col-lg-offset-4">
+            <h1 class="text-center" style="margin-bottom: 35px;">Wallet Login</h1>
+            <%= form_for @account, url: accounts_path, method: 'POST' do |f| %>
+              <% if @account.errors.any? %>
+                <div id="error_explanation">
+                  <h2>
+                    <%= pluralize(@account.errors.count, "error") %> prohibited
+                    this article from being saved:
+                  </h2>
+                  <ul>
+                    <% @account.errors.full_messages.each do |msg| %>
+                      <li><%= msg %></li>
+                    <% end %>
+                  </ul>
                 </div>
-            </div>
-            <span class="help-block">Sign above message in your wallet of choice
-              and paste the base64 result below. <!--Want to securely sign here?
-              <a id="sign-toggle">Get signed!</a>--></span>
+              <% end %>
+              <p>
+                <div class="form-group">
+                  <h3>Message</h3>
+                  <div class="input-group">
+                    <%= f.text_field :generated_message, value: @generated_message,
+                      class: 'form-control', id: 'message', readonly: true, autofocus: true %>
+                      <div class="input-group-addon" id="copy-message" data-toggle="tooltip" data-placement="right" title="Copied!">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"/>
+                      </div>
+                  </div>
+                  <span class="help-block">Sign above message in your wallet of choice
+                    and paste the base64 result below. <!--Want to securely sign here?
+                    <a id="sign-toggle">Get signed!</a>--></span>
+                </div>
+              </p>
+              <p>
+                <h3>Signature</h3>
+                <%= f.text_field :generated_signature, value: '', class: 'form-control' %>
+                <span class="help-block">Paste signed result from your wallet.</span>
+              </p>
+              <p>
+                <h3>Address</h3>
+                <%= f.text_field :public_key, class: 'form-control' %>
+                <span class="help-block">The address you signed the message with.</span>
+              </p>
+
+              <p>
+                <% if params[:redirect] != nil %>
+                  <%= f.hidden_field 'redirect', value: params[:redirect] %>
+                <% end %>
+                <%= f.submit 'Authenticate', class: 'btn btn-primary' %>
+              </p>
+            <% end %>
           </div>
-        </p>
-        <p>
-          <h3>Signature</h3>
-          <%= f.text_field :generated_signature, value: '', class: 'form-control' %>
-          <span class="help-block">Paste signed result from your wallet.</span>
-        </p>
-        <p>
-          <h3>Address</h3>
-          <%= f.text_field :public_key, class: 'form-control' %>
-          <span class="help-block">The address you signed the message with.</span>
-        </p>
-
-        <p>
-          <% if params[:redirect] != nil %>
-            <%= f.hidden_field 'redirect', value: params[:redirect] %>
+        </div>
+      </div>
+    </body>
+  </html>
+<% else %>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-4 col-md-offset-3 col-lg-offset-4">
+        <h1 class="text-center" style="margin-bottom: 35px;">Wallet Login</h1>
+        <%= form_for @account, url: accounts_path, method: 'POST' do |f| %>
+          <% if @account.errors.any? %>
+            <div id="error_explanation">
+              <h2>
+                <%= pluralize(@account.errors.count, "error") %> prohibited
+                this article from being saved:
+              </h2>
+              <ul>
+                <% @account.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
           <% end %>
-          <%= f.submit 'Authenticate', class: 'btn btn-primary' %>
-        </p>
-      <% end %>
-    </div>
-  </div>
-</div>
+          <p>
+            <div class="form-group">
+              <h3>Message</h3>
+              <div class="input-group">
+                <%= f.text_field :generated_message, value: @generated_message,
+                  class: 'form-control', id: 'message', readonly: true, autofocus: true %>
+                  <div class="input-group-addon" id="copy-message" data-toggle="tooltip" data-placement="right" title="Copied!">
+                    <span class="glyphicon glyphicon-copy" aria-hidden="true"/>
+                  </div>
+              </div>
+              <span class="help-block">Sign above message in your wallet of choice
+                and paste the base64 result below. <!--Want to securely sign here?
+                <a id="sign-toggle">Get signed!</a>--></span>
+            </div>
+          </p>
+          <p>
+            <h3>Signature</h3>
+            <%= f.text_field :generated_signature, value: '', class: 'form-control' %>
+            <span class="help-block">Paste signed result from your wallet.</span>
+          </p>
+          <p>
+            <h3>Address</h3>
+            <%= f.text_field :public_key, class: 'form-control' %>
+            <span class="help-block">The address you signed the message with.</span>
+          </p>
 
-<div class="modal fade sign-modal" tabindex="-1" role="dialog" aria-labelledby="Sign Message">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
+          <p>
+            <% if params[:redirect] != nil %>
+              <%= f.hidden_field 'redirect', value: params[:redirect] %>
+            <% end %>
+            <%= f.submit 'Authenticate', class: 'btn btn-primary' %>
+          </p>
+        <% end %>
       </div>
     </div>
   </div>
-</div>
+
+  <div class="modal fade sign-modal" tabindex="-1" role="dialog" aria-labelledby="Sign Message">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
