@@ -12,6 +12,7 @@ class AccountsController < ApplicationController
     @title = "Login"
     if params[:redirect] != nil
       render :layout => false
+      @generated_message = 'Authparty Login ' + generate_code(15)
     end
     @generated_message = 'Authparty Login ' + generate_code(15)
     @generated_signature = 'Authparty Login ' + generate_code(15)
