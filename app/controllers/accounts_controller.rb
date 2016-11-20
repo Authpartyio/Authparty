@@ -12,6 +12,8 @@ class AccountsController < ApplicationController
     @title = "Login"
     @generated_message = 'Authparty Login ' + generate_code(15)
     @generated_signature = 'Authparty Login ' + generate_code(15)
+    @qr_data = 'counterparty:?message="' +
+      @generated_message + '"&action="sign"&callback="http://dev.authparty.io/api/v1/authorize_login"'
   end
 
   def create
