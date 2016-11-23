@@ -15,11 +15,12 @@ class AccountsController < ApplicationController
     @title = "Login"
     @generated_message = 'Authparty Login ' + generate_code(15)
     @generated_signature = 'Authparty Login ' + generate_code(15)
-    @callback = URI.escape(ENV['BASE_API_URL'] + '/api/v1/authorize_login')
     if params[:redirect] != nil
-      value = url_encode("counterparty:?method=sign&message=" + URI.escape(@generated_message.to_s) + "&provider=" + params[:redirect] + "&callback=" + url_encode(@callback))
+      @callback = URI.escape(ENV['BASE_API_URL'] + '/api/v1/authorize_login?provider=' + params[:redirect])
+      value = url_encode("counterparty:?action=sign&message=" + URI.escape(@generated_message.to_s) + "&callback=" + url_encode(@callback))
     else
-      value = url_encode("counterparty:?method=sign&message=" + URI.escape(@generated_message.to_s) + "&callback=" + url_encode(@callback))
+      @callback = URI.escape(ENV['BASE_API_URL'] + '/api/v1/authorize_login')
+      value = url_encode("counterparty:?action=sign&message=" + URI.escape(@generated_message.to_s) + "&callback=" + url_encode(@callback))
     end
     @qr_data = value
   end
