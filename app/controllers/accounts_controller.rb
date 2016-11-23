@@ -15,7 +15,7 @@ class AccountsController < ApplicationController
     @title = "Login"
     @generated_message = 'Authparty Login ' + generate_code(15)
     @generated_signature = 'Authparty Login ' + generate_code(15)
-    @callback = URI.escape(ENV['BASE_API_URL'] + 'api/v1/authorize_login')
+    @callback = URI.escape(ENV['BASE_API_URL'] + '/api/v1/authorize_login')
     if params[:redirect] != nil
       value = url_encode("counterparty:?method=sign&message=" + URI.escape(@generated_message.to_s) + "&provider=" + params[:redirect] + "&callback=" + url_encode(@callback))
     else
