@@ -1,5 +1,8 @@
 require 'httparty'
 require 'json'
+require 'URI'
+require "erb"
+include ERB::Util
 class AccountsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :show, :edit]
   def index
@@ -12,8 +15,13 @@ class AccountsController < ApplicationController
     @title = "Login"
     @generated_message = 'Authparty Login ' + generate_code(15)
     @generated_signature = 'Authparty Login ' + generate_code(15)
-    @qr_data = 'counterparty:?message="' +
-      @generated_message + '"&action="sign"&callback="http://dev.authparty.io/api/v1/authorize_login"'
+    if params[:redirect] != nil
+      @callback = URI.escape('http://dev.authparty.io/api/v1/authorize_login?provider=' + params[:redirect])
+    else
+      @callback = URI.escape('http://dev.authparty.io/api/v1/authorize_login')
+    end
+    value = url_encode("counterparty:?method=sign&message=" + URI.escape(@generated_message.to_s) + "&callback=" + url_encode(@callback))
+    @qr_data = value
   end
 
   def create
