@@ -1,6 +1,6 @@
 require 'httparty'
 require 'json'
-require 'URI'
+require 'uri'
 require "erb"
 include ERB::Util
 class AccountsController < ApplicationController
