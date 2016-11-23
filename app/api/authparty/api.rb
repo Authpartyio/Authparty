@@ -12,12 +12,6 @@ class Authparty::API < Grape::API
       address = CGI.unescape(params[:address])
       signature = params[:generated_signature]
       message = CGI.unescape(params[:generated_message])
-      puts address
-      puts signature
-      puts message
-      #address = '11o51X3ciSjoLWFN3sbg3yzCM8RSuD2q9'
-      #signature = 'HIBYi2g3yFimzD/YSD9j+PYwtsdCuHR2xwIQ6n0AN6RPUVDGttgOmlnsiwx90ZSjmaWrH1/HwrINJbaP7eMA6V4='
-      #message = 'this is a message'
       if BitcoinCigs.verify_message(address, signature, message)
         @account = Account.find_or_create_from_wallet_address(params[:address])
         if @account.broadcast_code == nil
@@ -30,7 +24,7 @@ class Authparty::API < Grape::API
           else
             notice = 'User was created.'
           end
-          provider = Provider.find_by(api_key: params[:api_key])
+          provider = Provider.find_by(api_key: params[:provider])
           provider_exists = false
           @account.connections.each do |c|
             if c.provider_id = provider.id
@@ -76,11 +70,14 @@ class Authparty::API < Grape::API
       get :authorize_url do
         return BASE_API_URL + 'providers_login?api_key=' + params['api_key']
       end
-  end
-
-  def generate_code(number)
-    charset = Array('A'..'Z') + Array('a'..'z')
-    Array.new(number) { charset.sample }.join
+      get :authorize_qrcode do
+        charset = Array('A'..'Z') + Array('a'..'z')
+        generated_message = 'Authparty Login ' + Array.new(15) { charset.sample }.join
+        provider = params[:api_key]
+        callback = params[:callback_url]
+        @value = url_encode("counterparty:?method=sign&message=" + URI.escape(generated_message.to_s) + "&provider=" + provider + "&callback=" + url_encode(callback))
+        return "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=#{@value}"
+      end
   end
 
 end
