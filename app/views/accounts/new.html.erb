@@ -67,6 +67,19 @@
           </div>
         </div>
       </div>
+      <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('e6501f279d2014e1da78', {
+          encrypted: true
+        });
+
+        var channel = pusher.subscribe('<%= @modal_id %>');
+        channel.bind('my_event', function(data) {
+          alert(data.message);
+        });
+      </script>
     </body>
   </html>
 <% else %>
@@ -138,4 +151,18 @@
       </div>
     </div>
   </div>
+
+  <script>
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('e6501f279d2014e1da78', {
+      encrypted: true
+    });
+
+    var channel = pusher.subscribe('<%= @modal_id %>');
+    channel.bind('my_event', function(data) {
+      alert(data.message);
+    });
+  </script>
 <% end %>

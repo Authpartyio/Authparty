@@ -42,8 +42,14 @@ class Authparty::API < Grape::API
               provider.save
               connection.save
             end
+            Pusher.trigger(params[:modal_id], 'my_event', {
+              message: 'Provider: Authorized'
+            })
           end
           return :success => true
+          Pusher.trigger(params[:modal_id], 'my_event', {
+            message: 'Provider: Logged-in'
+          })
         else
           # Placeholder for Websocket Errors Alert
           return :success => false, :errors => @account.errors
@@ -51,6 +57,9 @@ class Authparty::API < Grape::API
       else
         # Placeholder for Websocket Cannot Confirm Authorization Alert
         return :success => false, :errors => 'We could not confirm your authorization.'
+        Pusher.trigger(params[:modal_id], 'my_event', {
+          message: 'Provider: We could not confirm your authorization.'
+        })
       end
     end
 
