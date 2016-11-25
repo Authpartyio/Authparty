@@ -25,23 +25,25 @@ class Authparty::API < Grape::API
           else
             notice = 'User was created.'
           end
-          provider = Provider.find_by(api_key: params[:provider])
-          provider_exists = false
-          @account.connections.each do |c|
-            if c.provider_id = provider.id
-              provider_exists = true
+          if params[:provider] != nil
+            provider = Provider.find_by(api_key: params[:provider])
+            provider_exists = false
+            @account.connections.each do |c|
+              if c.provider_id = provider.id
+                provider_exists = true
+              end
+            end
+            if provider_exists == false
+              connection = @account.connections.new
+              connection.provider_id = provider.id
+              connection.connected_on = Time.now
+              connection.bearer = SecureRandom.hex(32)
+              provider.number_connected += 1
+              provider.save
+              connection.save
             end
           end
-          if provider_exists == false
-            connection = @account.connections.new
-            connection.provider_id = provider.id
-            connection.connected_on = Time.now
-            connection.bearer = SecureRandom.hex(32)
-            provider.number_connected += 1
-            provider.save
-            connection.save
-          end
-          return :success => 'true'
+          return :success => true
         else
           # Placeholder for Websocket Errors Alert
           return :success => false, :errors => @account.errors
