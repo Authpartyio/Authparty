@@ -174,7 +174,7 @@
           xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
         }
       })
-      reload(true)
+      window.location.replace("<%= ENV['BASE_API_URL'] %>");
     });
   </script>
 <% end %>
