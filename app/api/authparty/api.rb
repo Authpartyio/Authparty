@@ -10,8 +10,8 @@ class Authparty::API < Grape::API
   desc 'Authorize Scanned Interaction'
     post :authorize_login do
       address = params[:address]
-      signature = params[:generated_signature]
-      message = params[:generated_message]
+      signature = params[:signature]
+      message = params[:message]
       puts address
       puts signature
       puts message
