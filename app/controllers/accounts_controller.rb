@@ -20,7 +20,7 @@ class AccountsController < ApplicationController
       @callback = URI.escape(ENV['BASE_API_URL'] + '/api/v1/authorize_login?provider=' + params[:redirect] + '&modal_id=' + @modal_id)
       value = url_encode("counterparty:?action=sign&message=" + URI.escape(@generated_message.to_s) + "&callback=" + url_encode(@callback))
     else
-      @callback = URI.escape(ENV['BASE_API_URL'] + '/api/v1/authorize_login?modal_id=' + @modal_id')
+      @callback = URI.escape(ENV['BASE_API_URL'] + '/api/v1/authorize_login?modal_id=' + @modal_id)
       value = url_encode("counterparty:?action=sign&message=" + URI.escape(@generated_message.to_s) + "&callback=" + url_encode(@callback))
     end
     @qr_data = value
