@@ -12,9 +12,6 @@ class Authparty::API < Grape::API
       address = params[:address]
       signature = params[:signature]
       message = params[:message]
-      puts address
-      puts signature
-      puts message
       if BitcoinCigs.verify_message(address.to_s, signature.to_s, message.to_s)
         puts 'BitcoinCigs: Success!'
         @account = Account.find_or_create_from_wallet_address(params[:address])
@@ -48,12 +45,10 @@ class Authparty::API < Grape::API
         else
           # Placeholder for Websocket Errors Alert
           return :success => false, :errors => @account.errors
-          puts 'BitcoinCigs: Account Error!'
         end
       else
         # Placeholder for Websocket Cannot Confirm Authorization Alert
         return :success => false, :errors => 'We could not confirm your authorization.'
-        puts 'BitcoinCigs: Failure!'
       end
     end
 
