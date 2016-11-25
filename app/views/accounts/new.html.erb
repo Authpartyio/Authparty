@@ -68,22 +68,21 @@
         </div>
       </div>
       <script>
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
-
         var pusher = new Pusher('e6501f279d2014e1da78', {
           encrypted: true
         });
 
         var channel = pusher.subscribe('<%= @modal_id %>');
         channel.bind('my_event', function(data) {
-          alert(data.message);
           $.ajax({
             url: "<%= ENV['BASE_API_URL'] %>/set_session?account=" + data.user,
             beforeSend: function( xhr ) {
               xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
             }
           })
+          .done(function() {
+            window.location.replace("<%= ENV['BASE_API_URL'] %>");
+          });
         });
       </script>
     </body>
@@ -159,9 +158,6 @@
   </div>
 
   <script>
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
-
     var pusher = new Pusher('e6501f279d2014e1da78', {
       encrypted: true
     });
