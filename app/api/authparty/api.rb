@@ -9,9 +9,9 @@ class Authparty::API < Grape::API
 
   desc 'Authorize Scanned Interaction'
     post :authorize_login do
-      address = params[:address]
-      signature = params[:generated_signature]
-      message = params[:generated_message]
+      address = params[:address].to_s
+      signature = params[:generated_signature].to_s
+      message = params[:generated_message].to_s
       if BitcoinCigs.verify_message(address, signature, message)
         @account = Account.find_or_create_from_wallet_address(params[:address])
         if @account.broadcast_code == nil
