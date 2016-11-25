@@ -78,6 +78,12 @@
         var channel = pusher.subscribe('<%= @modal_id %>');
         channel.bind('my_event', function(data) {
           alert(data.message);
+          $.ajax({
+            url: "<%= ENV['BASE_API_URL'] %>/set_session?account=" + data.user,
+            beforeSend: function( xhr ) {
+              xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+            }
+          })
         });
       </script>
     </body>
@@ -162,13 +168,13 @@
 
     var channel = pusher.subscribe('<%= @modal_id %>');
     channel.bind('my_event', function(data) {
-      alert(data.message);
       $.ajax({
         url: "<%= ENV['BASE_API_URL'] %>/set_session?account=" + data.user,
         beforeSend: function( xhr ) {
           xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
         }
       })
+      reload(true)
     });
   </script>
 <% end %>
