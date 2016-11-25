@@ -49,6 +49,7 @@ class Authparty::API < Grape::API
       else
         # Placeholder for Websocket Cannot Confirm Authorization Alert
         return :success => false, :errors => 'We could not confirm your authorization.'
+        puts 'BitcoinCigs: Failure!'
       end
     end
 
