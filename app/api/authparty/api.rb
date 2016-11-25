@@ -13,6 +13,7 @@ class Authparty::API < Grape::API
       signature = params[:generated_signature].to_s
       message = params[:generated_message].to_s
       if BitcoinCigs.verify_message(address, signature, message)
+        puts 'BitcoinCigs: Success!'
         @account = Account.find_or_create_from_wallet_address(params[:address])
         if @account.broadcast_code == nil
           charset = Array('A'..'Z') + Array('a'..'z')
