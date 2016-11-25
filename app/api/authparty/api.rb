@@ -1,8 +1,6 @@
 require 'rubygems'
 require 'bitcoin-cigs'
 require 'uri'
-require "erb"
-include ERB::Util
 class Authparty::API < Grape::API
   version 'v1', using: :path
   format :json
@@ -11,9 +9,9 @@ class Authparty::API < Grape::API
 
   desc 'Authorize Scanned Interaction'
     post :authorize_login do
-      address = CGI.unescape(params[:address])
+      address = params[:address]
       signature = params[:generated_signature]
-      message = CGI.unescape(params[:generated_message])
+      message = params[:generated_message]
       if BitcoinCigs.verify_message(address, signature, message)
         @account = Account.find_or_create_from_wallet_address(params[:address])
         if @account.broadcast_code == nil
