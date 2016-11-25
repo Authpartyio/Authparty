@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   resources :accounts
 
+  get 'set_session' => 'accounts#set_session'
   get 'login'   => 'accounts#new'
   get 'logout'  => 'accounts#logout'
 

@@ -80,6 +80,10 @@ class AccountsController < ApplicationController
     redirect_to account_path(@account), :flash => { :success => 'Account updated.' }
   end
 
+  def set_session
+    session[:user] = params[:account]
+  end
+
   def logout
     account = Account.find(session[:user])
     account.logged_out_at = Time.now

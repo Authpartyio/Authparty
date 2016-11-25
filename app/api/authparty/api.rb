@@ -23,12 +23,14 @@ class Authparty::API < Grape::API
           if @account.persisted?
             notice = 'User was logged in.'
             Pusher.trigger(params[:modal_id], 'my_event', {
-              message: notice
+              message: notice,
+              user: @account.id
             })
           else
             notice = 'User was created.'
             Pusher.trigger(params[:modal_id], 'my_event', {
-              message: notice
+              message: notice,
+              user: @account.id
             })
           end
           if params[:provider] != nil
@@ -49,7 +51,8 @@ class Authparty::API < Grape::API
               connection.save
             end
             Pusher.trigger(params[:modal_id], 'my_event', {
-              message: 'Provider: Authorized'
+              message: 'Provider: Authorized',
+              user: @account.id
             })
           end
           return :success => true
