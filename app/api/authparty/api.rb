@@ -22,8 +22,14 @@ class Authparty::API < Grape::API
         if @account.save
           if @account.persisted?
             notice = 'User was logged in.'
+            Pusher.trigger(params[:modal_id], 'my_event', {
+              message: notice
+            })
           else
             notice = 'User was created.'
+            Pusher.trigger(params[:modal_id], 'my_event', {
+              message: notice
+            })
           end
           if params[:provider] != nil
             provider = Provider.find_by(api_key: params[:provider])
@@ -47,9 +53,6 @@ class Authparty::API < Grape::API
             })
           end
           return :success => true
-          Pusher.trigger(params[:modal_id], 'my_event', {
-            message: 'Provider: Logged-in'
-          })
         else
           # Placeholder for Websocket Errors Alert
           return :success => false, :errors => @account.errors
