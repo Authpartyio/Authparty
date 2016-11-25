@@ -81,6 +81,7 @@ class AccountsController < ApplicationController
   end
 
   def set_session
+    session[:logged_in_at] = Time.now
     session[:user] = params[:account]
   end
 
