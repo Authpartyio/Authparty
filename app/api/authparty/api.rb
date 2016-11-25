@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'bitcoin-cigs'
 require 'uri'
+require "erb"
+include ERB::Util
 class Authparty::API < Grape::API
   version 'v1', using: :path
   format :json
