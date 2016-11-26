@@ -36,9 +36,11 @@ class ProvidersController < ApplicationController
     @provider = Provider.find_by(api_key: params[:api_key])
     if logged_in == true && @provider != nil
       @account = Account.find(current_user)
-      if @account.is_broadcasted == false
-        redirect_to root_url, :flash => { :errors =>
-          'You must first broadcast to confirm address ownership' }
+      if params[:token] != nil
+        if @account.is_broadcasted == false
+          redirect_to root_url, :flash => { :errors =>
+            'You must first broadcast to confirm address ownership' }
+        end
       else
         @title = 'Authorize ' + @provider.name
         render :layout => false
