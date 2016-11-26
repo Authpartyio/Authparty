@@ -1,7 +1,7 @@
 Searching broadcasts for <%= @account.public_key %>
 <p>Result: <%= @result %></p>
 
-<% if 0 != @response['total'] %>
+<% if 0 != @response['total'].to_i %>
   <h4>Found Broadcasts</h4>
   <p>
     <% @broadcasts.each do |b| %>
