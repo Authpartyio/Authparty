@@ -7,7 +7,7 @@
       <div class="panel-body">
         <% if @providers.length > 0 %>
           <% @providers.each do |p| %>
-            <div class="col-sm-12 well pull-left" style="padding: 25px;">
+            <div class="col-sm-12 well pull-left" style="width: 100%; padding: 25px;">
               <div class="pull-right" style="margin-bottom: 15px;">
                 <%= link_to 'Revoke Access', providers_revoke_path + '?account=' + @account.id.to_s + '&provider=' + p.id.to_s,
                   :class => 'btn btn-danger pull-right' %>
