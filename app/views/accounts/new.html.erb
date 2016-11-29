@@ -32,7 +32,9 @@
               <% end %>
               <p>
                 <div class="form-group">
-                  <img class="qr pull-left" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<%= @qr_data %>" />
+                  <a href="freewallet://<%= @qr_data %>">
+                    <img class="qr pull-left" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<%= @qr_data %>" />
+                  </a>
                   <h3>Message</h3>
                   <div class="input-group">
                     <%= f.text_field :generated_message, value: @generated_message,
@@ -41,9 +43,7 @@
                         <span class="glyphicon glyphicon-copy" aria-hidden="true"/>
                       </div>
                   </div>
-                  <span class="help-block">Sign above message in your wallet of choice
-                    and paste the base64 result below. <!--Want to securely sign here?
-                    <a id="sign-toggle">Get signed!</a>--></span>
+                  <span class="help-block">Sign above message, scan with mobile, or tap QR to open in wallet.</span>
                 </div>
               </p>
               <p>
