@@ -33,7 +33,7 @@
               <p>
                 <div class="form-group">
                   <a href="<%= url_encode('counterparty://' + @qr_data) %>">
-                    <img class="qr pull-left" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=counterparty:?<%= @qr_data %>" />
+                    <img class="qr pull-left" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=counterparty:<%= @qr_data %>" />
                   </a>
                   <h3>Message</h3>
                   <div class="input-group">
@@ -109,7 +109,7 @@
           <p>
             <div class="form-group">
               <a href="<%= url_encode('counterparty://' + @qr_data) %>">
-                <img class="qr pull-left" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=counterparty:?<%= @qr_data %>" />
+                <img class="qr pull-left" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=counterparty:<%= @qr_data %>" />
               </a>
               <h3>Message</h3>
               <div class="input-group">
