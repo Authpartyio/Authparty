@@ -17,3 +17,17 @@
 //= require bootstrap-sprockets
 
 $('a[data-popup]').on('click', function(e) { window.open($(this).attr('href')); e.preventDefault(); });
+
+$(document).ready(function() {
+  $('#copy-message').click(function() {
+    clipboard.copy($('#message').val());
+    $('#copy-message').tooltip('show');
+  });
+
+  $('#sign-toggle').click(function() {
+    $('.sign-modal').modal('toggle');
+    setTimeout(function() {
+        $(".sign-modal .modal-body").html("<%= j render(:file => 'welcome/index.html.erb') %>");
+    }, 1000);
+  });
+});

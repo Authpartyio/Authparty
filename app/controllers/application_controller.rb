@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protected
   def authenticate_user!
     if session[:user] != nil
-      
+
     else
       redirect_to root_path, :flash => { :errors => 'You must be authenticated to view that resource.' }
     end

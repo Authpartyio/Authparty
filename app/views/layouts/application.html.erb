@@ -2,10 +2,12 @@
 <html>
   <head>
     <title><%= @title %> | Authparty</title>
+    <%= favicon_link_tag 'favicon.ico' %>
     <%= csrf_meta_tags %>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://js.pusher.com/3.2/pusher.min.js"></script>
   </head>
 
   <body>
@@ -26,13 +28,13 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
             <% if logged_in == true %>
-            <li><%= link_to 'Account', account_path(current_user) %></li>
+              <li><%= link_to 'Account', account_path(current_user) %></li>
+              <% if current_user.public_key == ENV['PUBLIC_KEY'] %>
+                <li><%= link_to 'Providers', providers_path %></li>
+              <% end %>
+              <li><%= link_to 'Logout', logout_path %></li>
             <% else %>
-              <li class="login-btn">
-                <script type="text/javascript" class="clef-button" src="https://clef.io/v3/clef.js"
-                  data-app-id="<%= ENV['APP_ID'] %>" data-redirect-url="<%= ENV['CLEF_CALLBACK_URL'] %>">
-                </script>
-              </li>
+              <li><%= link_to 'Login', login_path %></li>
             <% end %>
           </ul>
         </div><!-- /.navbar-collapse -->
@@ -81,5 +83,17 @@
     </div>
 
     <%= yield %>
+
+    <% if Rails.env.production? %>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-58244508-4', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <% end %>
   </body>
 </html>

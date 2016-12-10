@@ -1,6 +1,7 @@
 require 'securerandom'
+require 'json'
 class ProvidersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:index, :show, :edit]
   def index
     if current_user == nil
       redirect_to root_url, :flash => { :errors => 'You must be logged in
@@ -22,6 +23,7 @@ class ProvidersController < ApplicationController
   def create
     @provider = Provider.new(provider_params)
     @provider.api_key = SecureRandom.hex(15)
+    @provider.api_secret = SecureRandom.hex(30)
     if @provider.save
       redirect_to provider_url(@provider)
     else
@@ -30,21 +32,39 @@ class ProvidersController < ApplicationController
   end
 
   def show
+    @title = "Provider Information"
+    @provider = Provider.find(params[:id])
+    @authorizations = Connection.where(provider_id: @provider.id).all
+    @tokens = @provider.tokens.all
+    if @authorizations.count > 0
+      @auth_count = 0
+      @authorizations.each do |a|
+        @auth_count = @auth_count + 1
+      end
+      @auth_msg = 'Authorization found: ' + @auth_count.to_s
+    else
+      @auth_msg = 'No authorizations found'
+    end
+  end
+
+  def update
   end
 
   def login_form
     @provider = Provider.find_by(api_key: params[:api_key])
     if logged_in == true && @provider != nil
       @account = Account.find(current_user)
-      if @account.is_broadcasted == false
-        redirect_to root_url, :flash => { :errors =>
-          'You must first broadcast to confirm address ownership' }
+      if params[:token] != nil
+        if @account.is_broadcasted == false
+          redirect_to root_url, :flash => { :errors =>
+            'You must first broadcast to confirm address ownership' }
+        end
       else
         @title = 'Authorize ' + @provider.name
         render :layout => false
       end
     else
-      redirect_to root_url, :flash => { :errors => 'Must be logged in.' }
+      redirect_to new_account_url + '?redirect=' + @provider.api_key
     end
   end
 

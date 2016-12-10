@@ -29,3 +29,43 @@
     h3 { margin: 0px; }
   }
 }
+
+div#sidebar {
+  border-right: 1px solid #eeeeee;
+
+  .logo {
+    height: 150px;
+    width: 150px;
+  }
+
+  .active {
+    background-color: #eeeeee;
+  }
+  .menu {
+    text-align: right;
+  }
+}
+
+.tab-pane {
+  padding: 0px 15px 0px 15px;
+  .item {
+    float: left;
+    min-height: 150px;
+  }
+  small.break {
+    word-break: break-all;
+  }
+
+  td {
+    word-break: break-all;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 750px) {
+  .tab-pane {
+    .item {
+      float: left;
+      min-height: 15px;
+    }
+  }
+}
