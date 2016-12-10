@@ -32,6 +32,7 @@ class ProvidersController < ApplicationController
   end
 
   def show
+    @title = "Provider Information"
     @provider = Provider.find(params[:id])
     @authorizations = Connection.where(provider_id: @provider.id).all
     @tokens = @provider.tokens.all
