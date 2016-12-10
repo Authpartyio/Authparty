@@ -1,4 +1,5 @@
 require 'securerandom'
+require 'json'
 class ProvidersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :show, :edit]
   def index
@@ -22,6 +23,7 @@ class ProvidersController < ApplicationController
   def create
     @provider = Provider.new(provider_params)
     @provider.api_key = SecureRandom.hex(15)
+    @provider.api_secret = SecureRandom.hex(30)
     if @provider.save
       redirect_to provider_url(@provider)
     else
@@ -30,6 +32,21 @@ class ProvidersController < ApplicationController
   end
 
   def show
+    @provider = Provider.find(params[:id])
+    @authorizations = Connection.where(provider_id: @provider.id).all
+    @tokens = @provider.tokens.all
+    if @authorizations.count > 0
+      @auth_count = 0
+      @authorizations.each do |a|
+        @auth_count = @auth_count + 1
+      end
+      @auth_msg = 'Authorization found: ' + @auth_count.to_s
+    else
+      @auth_msg = 'No authorizations found'
+    end
+  end
+
+  def update
   end
 
   def login_form

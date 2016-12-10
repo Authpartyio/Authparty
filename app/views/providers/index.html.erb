@@ -2,7 +2,8 @@
   <% @providers.each do |p| %>
     <div class="col-sm-12 col-md-6 col-lg-4 providers-div">
       <div class="well" style="margin-bottom: 0px;">
-        <h3 class="pull-right"><a class="btn btn-primary" style="margin-right: 10px;" role="button" data-toggle="collapse" href="#provider<%= p.id %>" aria-expanded="false" aria-controls="provider">Details</a></h3>
+        <h3 class="pull-right"><%= link_to 'Details', provider_path(p.id), class: 'btn btn-primary' %></h3>
+        <h3 class="pull-right"><a class="btn btn-info" style="margin-right: 10px;" role="button" data-toggle="collapse" href="#provider<%= p.id %>" aria-expanded="false" aria-controls="provider">Glance</a></h3>
         <h3><%= p.name %></h3>
         <hr />
         <div class="panel panel-default collapse" id="provider<%= p.id %>">

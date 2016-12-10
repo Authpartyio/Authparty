@@ -29,6 +29,9 @@
           <ul class="nav navbar-nav navbar-right">
             <% if logged_in == true %>
               <li><%= link_to 'Account', account_path(current_user) %></li>
+              <% if current_user.public_key == ENV['PUBLIC_KEY'] %>
+                <li><%= link_to 'Providers', providers_path %></li>
+              <% end %>
               <li><%= link_to 'Logout', logout_path %></li>
             <% else %>
               <li><%= link_to 'Login', login_path %></li>

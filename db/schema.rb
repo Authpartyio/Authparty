@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161113031234) do
+ActiveRecord::Schema.define(version: 20161210192031) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "public_key"
@@ -39,8 +39,22 @@ ActiveRecord::Schema.define(version: 20161113031234) do
     t.string   "contact_email"
     t.string   "logo"
     t.integer  "number_connected", default: 0
+    t.integer  "tokens",           default: 0
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.string   "api_secret"
+  end
+
+  create_table "tokens", force: :cascade do |t|
+    t.integer  "provider_id"
+    t.string   "name"
+    t.string   "description"
+    t.integer  "holders"
+    t.integer  "supply"
+    t.boolean  "locked"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["provider_id"], name: "index_tokens_on_provider_id"
   end
 
 end

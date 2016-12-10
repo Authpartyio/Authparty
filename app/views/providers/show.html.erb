@@ -1,2 +1,137 @@
-<h1>Providers#show</h1>
-<p>Find me in app/views/providers/show.html.erb</p>
+<div class="row margin-top">
+  <div class="col-sm-12 col-md-4 col-lg-3" id="sidebar">
+    <img class="img-responsive img-thumbnail logo center-block" src="<%= @provider.logo %>"></img>
+    <hr />
+    <ul class="nav menu" role="tablist">
+      <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
+      <li role="presentation"><a href="#authorizations" aria-controls="authorizations" role="tab" data-toggle="tab">Authorizations</a></li>
+      <li role="presentation"><a href="#tokens" aria-controls="tokens" role="tab" data-toggle="tab">Tokens</a></li>
+      <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+    </ul>
+  </div>
+  <div class="col-sm-12 col-md-8 col-lg-9">
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane fade in active" id="overview">
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-8">
+            <h1><%= @provider.name %> <small>Overview</small></h1>
+            <p>A quick overview of your integration</p>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="item col-sm-12 col-md-4 col-lg-3">
+            <h3>API Key
+            <br />
+            <small class="break"><%= @provider.api_key %></small></h3>
+          </div>
+          <div class="item col-sm-12 col-md-4 col-lg-3">
+            <h3>API Secret
+            <br />
+            <small class="break"><%= @provider.api_secret %></small></h3>
+          </div>
+          <div class="item col-sm-12 col-md-4 col-lg-3">
+            <h3>Connections
+            <br />
+            <small class="break"><%= @provider.number_connected %></small></h3>
+          </div>
+          <div class="item col-sm-12 col-md-4 col-lg-3">
+            <h3>Tokens
+            <br />
+            <small class="break"><%= @provider.tokens.count %></small></h3>
+          </div>
+          <div class="item col-sm-12 col-md-4 col-lg-3">
+            <h3>Created
+            <br />
+            <small class="break"><%= @provider.created_at %></small></h3>
+          </div>
+          <div class="item col-sm-12 col-md-4 col-lg-3">
+            <h3>Updated
+            <br />
+            <small class="break"><%= @provider.updated_at %></small></h3>
+          </div>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="authorizations">
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-8">
+            <h1><%= @provider.name %> <small>Authorizations</small></h1>
+            <p><%= @auth_msg %></p>
+          </div>
+          <% if @auth_count != 0 %>
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table table-striped"style="margin: 0px 10px 0px 10px;">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Connected</th>
+                      <th>Bearer</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @authorizations.each do |a| %>
+                      <tr>
+                        <th scope="row"><%= a.id %></th>
+                        <td><%= a.connected_on %></td>
+                        <td><%= a.bearer %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="tokens">
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-8">
+            <h1><%= @provider.name %> <small>Tokens</small></h1>
+          </div>
+        </div>
+        <div class="row">
+          <% if @provider.tokens.count != 0 %>
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table table-striped"style="margin: 0px 10px 0px 10px;">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Holders</th>
+                      <th>Supply</th>
+                      <th>Locked?</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @i = 0 %>
+                    <% @provider.tokens.each do |t| %>
+                      <tr>
+                        <th scope="row"><%= t.id %></th>
+                        <td><%= t.name %></td>
+                        <td><%= link_to t.description, t.description %></td>
+                        <td><%= t.holders %></td>
+                        <td><%= t.supply %></td>
+                        <td><%= t.locked %></td>
+                      </tr>
+                      <% @i = @i + 1 %>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="settings">
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-8">
+            <h1><%= @provider.name %> <small>Settings</small></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
