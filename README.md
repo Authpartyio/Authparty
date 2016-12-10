@@ -25,3 +25,10 @@ It is encouraged for the community to contribute with the following process.
 1. Fork master/create branch named with your update
 2. Commit your changes and create a Pull Request detailing the changes made and for what purposes.
 3. Your PR will be reviewed ASAP after submittal.
+
+
+## Installation
+
+Ubuntu:
+
+- to use the pg gem, 'sudo apt-get install libpq-dev'
