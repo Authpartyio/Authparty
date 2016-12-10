@@ -24,7 +24,7 @@ class AccountsController < ApplicationController
     else
       @callback = URI.escape(ENV['BASE_API_URL'] + '/api/v1/authorize_login?modal_id=' + @modal_id)
       value = url_encode("?action=sign&message=" + URI.escape(@generated_message.to_s) + "&icon=" + url_encode('http://authparty.io/Assets/authparty-icon-48x48.png') + "&callback=" + url_encode(@callback))
-      tapscan_value = "?action=sign&message=" + URI.escape(@generated_message.to_s) + "&callback=" + url_encode(@callback)
+      tapscan_value = "?action=sign&message=" + URI.escape(@generated_message.to_s) + "&icon=" + url_encode('http://authparty.io/Assets/authparty-icon-48x48.png') + "&callback=" + url_encode(@callback)
     end
     @qr_data = value
     @tapscan = tapscan_value
