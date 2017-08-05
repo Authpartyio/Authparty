@@ -72,19 +72,6 @@ class AccountsController < ApplicationController
     @account.connections.each do |c|
       @providers << Provider.find(c.provider_id)
     end
-
-    # Check for Early Access Token (XAPEA)
-    @early_access_token = false
-    address_tokens = HTTParty.get('https://xchain.io/api/balances/' + @account.public_key)
-    if address_tokens['error']
-        @address_error = true
-    else 
-        address_tokens['data'].each do |t|
-            if t['asset'] == 'XAPEA'
-                @early_access_token = true
-            end
-        end
-    end
   end
 
   def edit

@@ -69,24 +69,5 @@
         </p>
       </div>
     </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Early Access</h3>
-      </div>
-      <div class="panel-body">
-        <p>
-          <h5><strong>Status</strong></h5>
-          <% if @early_access_token != false %>
-            We found your early access token
-          <% else %>
-            <% if @address_error == true %>
-                This address has never made a transaction <br /><br />
-            <% end %>
-            A XAPEA token was not found. Get one via <%= link_to 'Swapbot', 'https://swapbot.tokenly.com/bot/mreichardt/authparty#choose'%>
-          <% end %>
-        </p>
-      </div>
-    </div>
   </div>
 </div>
