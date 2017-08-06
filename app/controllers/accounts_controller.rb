@@ -82,6 +82,7 @@ class AccountsController < ApplicationController
         address_tokens['data'].each do |t|
             if t['asset'] == 'XAPEA'
                 @early_access_token = true
+                @early_access_count = t['quantity']
             end
         end
     end

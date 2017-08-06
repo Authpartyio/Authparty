@@ -76,9 +76,9 @@
       </div>
       <div class="panel-body">
         <p>
-          <h5><strong>Status</strong></h5>
+          <h5><strong>Status: Active</strong></h5>
           <% if @early_access_token != false %>
-            We found your early access token
+            You currently have <%= @early_access_count %> XAPEA
           <% else %>
             <% if @address_error == true %>
                 This address has never made a transaction <br /><br />
